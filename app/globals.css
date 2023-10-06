@@ -4,6 +4,6 @@
 
 @layer utilities {
   .main {
-    @apply min-h-screen w-full max-w-4xl px-6;
+    @apply w-full max-w-4xl px-6;
   }
 }

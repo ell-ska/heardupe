@@ -5,13 +5,12 @@ import { spotifyClient, loginUrl } from '@/utils/spotify'
 
 const refreshAccessToken = async (token: any) => {
   try {
+    spotifyClient.setRefreshToken(token.refreshToken || '')
+
     const { body: refreshedToken } = await spotifyClient.refreshAccessToken()
     console.log('token has been refreshed: ' + refreshedToken)
 
     spotifyClient.setAccessToken(refreshedToken.access_token)
-    spotifyClient.setRefreshToken(
-      refreshedToken.refresh_token ?? (token.refreshToken || ''),
-    )
 
     return {
       ...token,

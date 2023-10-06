@@ -3,6 +3,8 @@ import { Lexend, Climate_Crisis } from 'next/font/google'
 
 import { cn } from '@/utils/classnames'
 import NextAuthProvider from '@/providers/NextAuthProvider'
+import Header from '@/components/Header/Header'
+import Footer from '@/components/Footer'
 import './globals.css'
 
 const lexend = Lexend({
@@ -35,10 +37,14 @@ export default function RootLayout({
         className={cn(
           lexend.variable,
           climatCrisis.variable,
-          'flex flex-col items-center bg-neutral-900 font-primary text-white',
+          'flex min-h-screen flex-col items-center bg-neutral-900 font-primary text-white',
         )}
       >
-        <NextAuthProvider>{children}</NextAuthProvider>
+        <NextAuthProvider>
+          <Header />
+          {children}
+          <Footer />
+        </NextAuthProvider>
       </body>
     </html>
   )

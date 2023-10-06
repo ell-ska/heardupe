@@ -2,7 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 
 import { cn } from '@/utils/classnames'
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
   'font-regular rounded-full transition hover:scale-105',
   {
     variants: {

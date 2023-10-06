@@ -15,6 +15,11 @@ const config: Config = {
       colors: {
         primary: '#1ED760',
       },
+      minHeight: {
+        // it works, it's just new
+        // @ts-ignore: string[] not assignable to string
+        screen: ['100vh', '100svh'],
+      },
     },
   },
   plugins: [],

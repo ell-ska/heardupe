@@ -1,5 +1,35 @@
+import PlaylistCard from '@/components/Playlist/PlaylistCard'
+import placeholderImage from '@/public/placeholder.jpeg'
+
 const Home = () => {
-  return <main className='main flex-grow'></main>
+  const staticPlaylist = {
+    id: '2RQXRUsr4IW1f3mKyKsy4B',
+    type: 'artist',
+    description: 'Indie, alternative',
+    name: 'Noah Kahan',
+    images: [
+      {
+        height: 640,
+        width: 640,
+        url: placeholderImage.src,
+      },
+    ],
+  }
+
+  return (
+    <main className='main mt-8 flex-grow'>
+      <div className='mb-8 flex flex-col-reverse gap-8 md:flex-row'>
+        <PlaylistCard {...staticPlaylist} className='flex-1' featured />
+        <div className='flex flex-1 flex-col justify-center'>
+          <span>Hello, and welcome to</span>
+          <h1 className='xs:text-5xl mb-2 font-branding text-4xl'>Heardupe</h1>
+          <h2 className='xs:text-xl text-lg'>
+            Please pick a playlist to start
+          </h2>
+        </div>
+      </div>
+    </main>
+  )
 }
 
 export default Home

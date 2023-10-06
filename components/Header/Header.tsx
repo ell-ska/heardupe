@@ -21,8 +21,8 @@ const menuItems = [
 
 const Header = () => {
   return (
-    <header className='main absolute inset-x-0 m-auto py-8'>
-      <nav className='flex gap-12'>
+    <header className='main px-6 py-8'>
+      <nav className='flex w-full justify-between gap-6 px-4 sm:justify-start sm:gap-12'>
         {menuItems.map(item => (
           <NavLink key={item.name} {...item} />
         ))}

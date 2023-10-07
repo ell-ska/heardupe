@@ -1,20 +1,25 @@
+import { getServerSession } from 'next-auth'
+
 import PlaylistCard from '@/components/Playlist/PlaylistCard'
+import PlaylistGallery from '@/components/Playlist/PlaylistGallery'
 import placeholderImage from '@/public/placeholder.jpeg'
 
-const Home = () => {
-  const staticPlaylist = {
-    id: '2RQXRUsr4IW1f3mKyKsy4B',
-    type: 'artist',
-    description: 'Indie, alternative',
-    name: 'Noah Kahan',
-    images: [
-      {
-        height: 640,
-        width: 640,
-        url: placeholderImage.src,
-      },
-    ],
-  }
+const staticPlaylist = {
+  id: '2RQXRUsr4IW1f3mKyKsy4B',
+  type: 'artist',
+  description: 'Indie, alternative',
+  name: 'Noah Kahan',
+  images: [
+    {
+      height: 640,
+      width: 640,
+      url: placeholderImage.src,
+    },
+  ],
+}
+
+const Home = async () => {
+  const session = await getServerSession()
 
   return (
     <main className='main mt-8 flex-grow'>
@@ -28,6 +33,7 @@ const Home = () => {
           </h2>
         </div>
       </div>
+      {session && <PlaylistGallery />}
     </main>
   )
 }

@@ -33,7 +33,7 @@ const PlaylistCard = ({
     <div
       className={cn(
         'group min-w-0 snap-start rounded-lg bg-neutral-800 p-4 transition hover:bg-neutral-700',
-        (lg || featured) && 'p-6',
+        (lg || featured) && 'col-span-2 row-span-2 p-6',
         className,
       )}
     >
@@ -52,7 +52,10 @@ const PlaylistCard = ({
           <Image
             src={playIcon}
             alt='Play'
-            className='transition hover:scale-110'
+            className={cn(
+              'transition hover:scale-110',
+              !(lg || featured) && 'w-8 sm:w-12',
+            )}
           />
         </Link>
       </div>

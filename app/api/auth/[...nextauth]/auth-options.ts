@@ -41,6 +41,7 @@ const authOptions: AuthOptions = {
       }
 
       if (Date.now() < updatedToken.expires_at) {
+        console.log('access token expired')
         return refreshAccessToken(updatedToken)
       }
 

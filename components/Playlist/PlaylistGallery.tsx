@@ -1,9 +1,10 @@
 'use client'
 
-import sdk from '@/lib/spotify-client'
-import useSWR from 'swr'
-import PlaylistCard from './PlaylistCard'
 import { useState } from 'react'
+import useSWR from 'swr'
+import sdk from '@/lib/spotify-client'
+
+import PlaylistCard from './PlaylistCard'
 import Button from '../Button'
 
 const largeCardIndexes = [6, 13, 24, 31, 42, 49]
@@ -12,7 +13,7 @@ const PlaylistGallery = () => {
   const [playlistsToShow, setPlaylistsToShow] = useState(13)
   const maxPlaylistsToShow = 49
 
-  const { data } = useSWR('/api/user-playlists', () =>
+  const { data } = useSWR('/api/playlists/user', () =>
     sdk.currentUser.playlists.playlists(maxPlaylistsToShow),
   )
 

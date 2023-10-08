@@ -1,19 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import type { Artist, SimplifiedPlaylist } from '@spotify/web-api-ts-sdk'
 
 import { cn } from '@/utils/classnames'
-import playIcon from '@/public/play-card.svg'
+import { PlayBg } from '@/components/Icons'
 
-type PlaylistCardProps = {
-  id: string
-  type: string
+type PlaylistCardProps = (Omit<SimplifiedPlaylist, 'tracks'> | Artist) & {
   description?: string
-  name: string
-  images: {
-    height: number
-    width: number
-    url: string
-  }[]
   lg?: boolean
   featured?: boolean
   className?: string
@@ -38,25 +31,22 @@ const PlaylistCard = ({
       )}
     >
       <div className={cn('relative mb-4', (lg || featured) && 'mb-8')}>
-        <Image
-          src={images[0]?.url}
-          alt={name}
-          width={images[0]?.width || 640}
-          height={images[0]?.height || 640}
-          className='aspect-square rounded object-cover'
-        />
+        {images[0] ? (
+          <Image
+            src={images[0]?.url}
+            alt={name}
+            width={images[0]?.width || 640}
+            height={images[0]?.height || 640}
+            className='aspect-square rounded object-cover'
+          />
+        ) : (
+          <div className='aspect-square w-full rounded bg-neutral-700' />
+        )}
         <Link
           href={`/${type}/${id}`}
-          className='touch-device:opacity-100 touch-device:translate-y-0 absolute bottom-2 right-2 translate-y-4 opacity-0 drop-shadow-md transition group-hover:translate-y-0 group-hover:opacity-100'
+          className='absolute bottom-2 right-2 translate-y-4 opacity-0 drop-shadow-md transition group-hover:translate-y-0 group-hover:opacity-100 touch-device:translate-y-0 touch-device:opacity-100'
         >
-          <Image
-            src={playIcon}
-            alt='Play'
-            className={cn(
-              'transition hover:scale-110',
-              !(lg || featured) && 'w-8 sm:w-12',
-            )}
-          />
+          <PlayBg className='transition hover:scale-110' />
         </Link>
       </div>
       {featured && (

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import useSWR from 'swr'
-import { ItemTypes } from '@spotify/web-api-ts-sdk'
+import type { ItemTypes } from '@spotify/web-api-ts-sdk'
 
 import sdk from '@/lib/spotify-client'
 import useDebounce from '@/hooks/useDebounce'
@@ -9,7 +9,7 @@ const useSearch = (type: ItemTypes[]) => {
   const [search, setSearch] = useState<string | null>(null)
   const debouncedSearch = useDebounce(search, 300)
 
-  const { data: searchResults } = useSWR(
+  const { data, error, isLoading } = useSWR(
     `api/search/${debouncedSearch}`,
     () => {
       if (!search) return null
@@ -17,7 +17,7 @@ const useSearch = (type: ItemTypes[]) => {
     },
   )
 
-  return { search, setSearch, searchResults }
+  return { search, setSearch, searchResults: data, error, isLoading }
 }
 
 export { useSearch }

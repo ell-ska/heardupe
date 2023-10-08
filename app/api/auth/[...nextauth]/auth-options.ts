@@ -25,7 +25,7 @@ const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, account }: { token: JWT; account: Account | null }) {
-      if (!account) {
+      if (!account || !token.access_token) {
         return token
       }
 

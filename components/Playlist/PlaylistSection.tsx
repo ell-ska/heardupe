@@ -5,7 +5,7 @@ import PlaylistCard from './PlaylistCard'
 
 type PlaylistSectionProps = {
   title: string
-  playlists: SimplifiedPlaylist[] | Artist[]
+  playlists: Omit<SimplifiedPlaylist, 'tracks'>[] | Artist[]
   className?: string
 }
 

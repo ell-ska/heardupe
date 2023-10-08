@@ -26,9 +26,6 @@ const config: Config = {
       },
     },
   },
-  experimental: {
-    optimizeUniversalDefaults: true,
-  },
   future: {
     hoverOnlyWhenSupported: true,
   },

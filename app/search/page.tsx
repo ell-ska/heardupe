@@ -12,15 +12,13 @@ const Search = () => {
 
   return (
     <main className='main mb-16 flex-grow'>
-      <div>
-        <input
-          type='text'
-          value={search || ''}
-          onChange={e => setSearch(e.target.value)}
-          placeholder='search...'
-          className='w-full rounded-full px-8 py-4 text-neutral-900 outline-none'
-        />
-      </div>
+      <input
+        type='text'
+        value={search || ''}
+        onChange={e => setSearch(e.target.value)}
+        placeholder='search...'
+        className='w-full rounded-full px-8 py-4 text-neutral-900 outline-none'
+      />
       {isLoading && (
         <div className='mt-8 flex flex-col items-center gap-2'>
           <Loader className='animate-spin' />

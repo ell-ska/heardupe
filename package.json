@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.5",
     "@spotify/web-api-ts-sdk": "^1.1.2",
     "@types/spotify-web-api-node": "^5.0.8",
     "class-variance-authority": "^0.7.0",

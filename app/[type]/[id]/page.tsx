@@ -3,15 +3,17 @@
 import useSWR from 'swr'
 
 import { getGameData } from '@/lib/fetchers'
+import Game from '@/components/Game/Game'
+import { Loader } from '@/components/Icons'
 
-type GameProps = {
+type PageProps = {
   params: {
     type: string
     id: string
   }
 }
 
-const Game = ({ params: { type, id } }: GameProps) => {
+const Page = ({ params: { type, id } }: PageProps) => {
   const { data, error } = useSWR(`api/${type}/${id}`, () =>
     getGameData(type, id),
   )
@@ -22,9 +24,11 @@ const Game = ({ params: { type, id } }: GameProps) => {
 
   return (
     <main className='main flex-grow'>
-      {type} {id}
+      {data?.playlist && data?.tracks && (
+        <Game playlist={data?.playlist} tracks={data?.tracks} type={type} />
+      )}
     </main>
   )
 }
 
-export default Game
+export default Page

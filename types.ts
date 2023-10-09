@@ -5,9 +5,12 @@ import type {
   Artist,
 } from '@spotify/web-api-ts-sdk'
 
+type gamePlaylist = Artist | Playlist
+type gameTracks = Track[] | PlaylistedTrack[]
+
 type gameData = {
-  playlist: Artist | Playlist
-  tracks: Track[] | PlaylistedTrack[]
+  playlist: gamePlaylist
+  tracks: gameTracks
 }
 
-export type { gameData }
+export type { gamePlaylist, gameTracks, gameData }

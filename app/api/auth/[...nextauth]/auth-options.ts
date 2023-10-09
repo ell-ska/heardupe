@@ -25,27 +25,28 @@ const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, account }: { token: JWT; account: Account | null }) {
-      if (!account || !token.access_token) {
+      if (account) {
+        console.log('sign in complete')
+        return {
+          ...token,
+          access_token: account.access_token,
+          token_type: account.token_type,
+          expires_at: account.expires_at
+            ? account.expires_at * 1000
+            : Date.now(),
+          refresh_token: account.refresh_token,
+          scope: account.scope,
+          id: account.providerAccountId,
+        }
+      }
+
+      if (Date.now() < (token.expires_at as number)) {
+        console.log('token is valid')
         return token
       }
 
-      const updatedToken = {
-        ...token,
-        access_token: account.access_token,
-        token_type: account.token_type,
-        expires_at: account.expires_at ?? Date.now() / 1000,
-        expires_in: (account.expires_at ?? 0) - Date.now() / 1000,
-        refresh_token: account.refresh_token,
-        scope: account.scope,
-        id: account.providerAccountId,
-      }
-
-      if (Date.now() < updatedToken.expires_at) {
-        console.log('access token expired')
-        return refreshAccessToken(updatedToken)
-      }
-
-      return updatedToken
+      console.log('token is expired')
+      return await refreshAccessToken(token)
     },
     async session({ session, token }: { session: any; token: any }) {
       const user: AuthUser = {

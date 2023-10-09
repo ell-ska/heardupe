@@ -12,7 +12,7 @@ const useSearch = (type: ItemTypes[]) => {
   const { data, error, isLoading } = useSWR(
     `api/search/${debouncedSearch}`,
     () => {
-      if (!search) return null
+      if (!debouncedSearch) return null
       return sdk.search(debouncedSearch, type)
     },
   )

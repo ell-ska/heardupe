@@ -12,9 +12,10 @@ type guessStore = {
 type statusStore = {
   currentTrack: Track | null
   setCurrentTrack: (track: Track) => void
+  stage: 1 | 2 | 3 | 4 | 5 | 6
   level: number
   levelOver: boolean
-  stage: 1 | 2 | 3 | 4 | 5 | 6
+  gameOver: boolean
 }
 
 const useGuesses = create<guessStore>(set => ({
@@ -29,9 +30,10 @@ const useGuesses = create<guessStore>(set => ({
 const useStatus = create<statusStore>(set => ({
   currentTrack: null,
   setCurrentTrack: track => set({ currentTrack: track }),
+  stage: 1,
   level: 1,
   levelOver: false,
-  stage: 1,
+  gameOver: false,
 }))
 
 export { useGuesses, useStatus }

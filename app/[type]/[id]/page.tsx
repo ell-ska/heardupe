@@ -22,7 +22,7 @@ const Page = ({ params: { type, id } }: PageProps) => {
   }
 
   return (
-    <main className='main flex-grow'>
+    <main className='relative flex w-full grow flex-col'>
       {data?.playlist && data?.tracks && (
         <Game playlist={data?.playlist} tracks={data?.tracks} type={type} />
       )}

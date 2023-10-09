@@ -22,13 +22,13 @@ const Home = async () => {
   const session = await getServerSession()
 
   return (
-    <main className='main mt-8 flex-grow'>
+    <main className='main mt-8 grow'>
       <div className='mb-8 flex flex-col-reverse gap-8 md:flex-row'>
         <PlaylistCard {...staticPlaylist} className='flex-1' featured />
         <div className='flex flex-1 flex-col justify-center'>
           <span>Hello, and welcome to</span>
-          <h1 className='xs:text-5xl mb-2 font-branding text-4xl'>Heardupe</h1>
-          <h2 className='xs:text-xl text-lg'>
+          <h1 className='mb-2 font-branding text-4xl xs:text-5xl'>Heardupe</h1>
+          <h2 className='text-lg xs:text-xl'>
             Please pick a playlist to start
           </h2>
         </div>

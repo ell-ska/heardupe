@@ -11,7 +11,7 @@ const Search = () => {
   ])
 
   return (
-    <main className='main mb-16 flex-grow'>
+    <main className='main mb-16 grow'>
       <input
         type='text'
         value={search || ''}

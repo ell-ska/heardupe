@@ -17,7 +17,7 @@ const Playlists = () => {
   )
 
   return (
-    <main className='main mb-16 mt-8 flex-grow'>
+    <main className='main mb-16 mt-8 grow'>
       {topArtists && (
         <PlaylistSection
           title='Top Artists'

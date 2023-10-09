@@ -12,7 +12,7 @@ const Profile = () => {
   const profileImage = data?.images[1]
 
   return (
-    <main className='main mt-20 flex-grow'>
+    <main className='main mt-20 grow'>
       <div className='flex items-center justify-between'>
         <div className='flex items-center gap-12'>
           {profileImage && (

@@ -1,8 +1,8 @@
-import { useGame } from '@/hooks/useGame'
+import { useGuesses } from '@/hooks/useGame'
 import { cn } from '@/utils/classnames'
 
 const Guesses = () => {
-  const { guesses } = useGame()
+  const { guesses } = useGuesses()
 
   return (
     <ul className='mx-8 mt-8 flex flex-col gap-8'>

@@ -1,10 +1,10 @@
-import { useGame } from '@/hooks/useGame'
+import { useGuesses } from '@/hooks/useGame'
 import { Track } from '@spotify/web-api-ts-sdk'
 
 type SearchItemProps = Track & { clear: () => void }
 
 const SearchItem = ({ id, name, artists, clear }: SearchItemProps) => {
-  const { submitGuess } = useGame()
+  const { submitGuess } = useGuesses()
 
   const stringifiedArtists = artists.map(artist => artist.name).join(', ')
 

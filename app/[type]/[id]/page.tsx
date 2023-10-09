@@ -4,7 +4,6 @@ import useSWR from 'swr'
 
 import { getGameData } from '@/lib/fetchers'
 import Game from '@/components/Game/Game'
-import { Loader } from '@/components/Icons'
 
 type PageProps = {
   params: {

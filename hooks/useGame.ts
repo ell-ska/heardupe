@@ -1,7 +1,7 @@
-import { create, type StateCreator } from 'zustand'
+import { create } from 'zustand'
 import type { Track } from '@spotify/web-api-ts-sdk'
 
-type StateSlice = {
+type State = {
   guesses: { value: string; skipped?: boolean; id?: string }[]
   stage: number
   level: number
@@ -9,10 +9,21 @@ type StateSlice = {
   isLevelWon: boolean
   isGameOver: boolean
   isPlaying: boolean
-  setIsPlaying: (state: boolean) => void
+  amountOfLevels: number
+  currentTrack: Track | null
 }
 
-const createStateSlice: StateCreator<StateSlice> = set => ({
+type Actions = {
+  setAmountOfLevels: (number: number) => void
+  setCurrentTrack: (track: Track) => void
+  setIsPlaying: (state: boolean) => void
+  next: (type?: 'stage' | 'level' | 'reveal-answer') => void
+  submitGuess: (guess: { value: string; id: string }) => void
+  skipGuess: () => void
+  reset: () => void
+}
+
+const initialGameState: State = {
   guesses: [],
   stage: 1,
   level: 1,
@@ -20,33 +31,17 @@ const createStateSlice: StateCreator<StateSlice> = set => ({
   isLevelWon: false,
   isGameOver: false,
   isPlaying: false,
-  setIsPlaying: state => set({ isPlaying: state }),
-})
-
-type InfoSlice = {
-  amountOfLevels: number
-  setAmountOfLevels: (number: number) => void
-  currentTrack: Track | null
-  setCurrentTrack: (track: Track) => void
-}
-
-const createInfoSlice: StateCreator<InfoSlice> = set => ({
   amountOfLevels: 0,
-  setAmountOfLevels: number => set({ amountOfLevels: number }),
   currentTrack: null,
-  setCurrentTrack: track => set({ currentTrack: track }),
-})
-
-type NextSlice = {
-  next: (type?: 'stage' | 'level' | 'reveal-answer') => void
 }
 
-const createNextSlice: StateCreator<
-  StateSlice & InfoSlice,
-  [],
-  [],
-  NextSlice
-> = (set, get) => ({
+const useGame = create<State & Actions>((set, get) => ({
+  ...initialGameState,
+
+  setAmountOfLevels: number => set({ amountOfLevels: number }),
+  setCurrentTrack: track => set({ currentTrack: track }),
+  setIsPlaying: state => set({ isPlaying: state }),
+
   next: type =>
     set(() => {
       if (type === 'level') {
@@ -71,19 +66,7 @@ const createNextSlice: StateCreator<
         }
       }
     }),
-})
 
-type SubmitSlice = {
-  submitGuess: (guess: { value: string; id: string }) => void
-  skipGuess: () => void
-}
-
-const createSubmitSlice: StateCreator<
-  StateSlice & InfoSlice & NextSlice,
-  [],
-  [],
-  SubmitSlice
-> = (set, get) => ({
   submitGuess: guess =>
     set(() => {
       if (guess.id === get().currentTrack?.id) {
@@ -103,15 +86,8 @@ const createSubmitSlice: StateCreator<
         guesses: [...get().guesses, { skipped: true, value: 'Skipped' }],
       }
     }),
-})
 
-const useGame = create<StateSlice & InfoSlice & NextSlice & SubmitSlice>()(
-  (...a) => ({
-    ...createStateSlice(...a),
-    ...createInfoSlice(...a),
-    ...createNextSlice(...a),
-    ...createSubmitSlice(...a),
-  }),
-)
+  reset: () => set(initialGameState),
+}))
 
 export { useGame }

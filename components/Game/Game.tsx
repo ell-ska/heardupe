@@ -18,14 +18,27 @@ type GameProps = {
 }
 
 const Game = ({ playlist, tracks, type }: GameProps) => {
-  const { level, isLevelOver, isGameOver, setCurrentTrack, setAmountOfLevels } =
-    useGame(state => ({
-      level: state.level,
-      isLevelOver: state.isLevelOver,
-      isGameOver: state.isGameOver,
-      setCurrentTrack: state.setCurrentTrack,
-      setAmountOfLevels: state.setAmountOfLevels,
-    }))
+  const {
+    level,
+    isLevelOver,
+    isGameOver,
+    setCurrentTrack,
+    setAmountOfLevels,
+    reset,
+  } = useGame(state => ({
+    level: state.level,
+    isLevelOver: state.isLevelOver,
+    isGameOver: state.isGameOver,
+    setCurrentTrack: state.setCurrentTrack,
+    setAmountOfLevels: state.setAmountOfLevels,
+    reset: state.reset,
+  }))
+
+  useEffect(() => {
+    reset()
+    console.log(tracks)
+    // eslint-disable-next-line
+  }, [])
 
   useEffect(() => {
     setCurrentTrack(

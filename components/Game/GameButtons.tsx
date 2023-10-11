@@ -67,7 +67,13 @@ const Next = () => {
 }
 
 const PlayAgain = () => {
-  return <Button variant='outline'>Play again</Button>
+  const reset = useGame(state => state.reset)
+
+  return (
+    <Button variant='outline' onClick={reset}>
+      Play again
+    </Button>
+  )
 }
 
 const GameButtons = () => {

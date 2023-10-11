@@ -13,12 +13,14 @@ const getGameData = async (type: string, id: string): Promise<gameData> => {
     const playlist = await sdk.artists.get(id)
     const tracks = shuffle(
       (await sdk.artists.topTracks(id, user.country as Market)).tracks,
-    )
+    ).slice(0, 10)
 
     return { playlist, tracks }
   } else if (type === 'playlist') {
     const playlist = await sdk.playlists.getPlaylist(id)
-    const tracks = shuffle((await sdk.playlists.getPlaylistItems(id)).items)
+    const tracks = shuffle(
+      (await sdk.playlists.getPlaylistItems(id)).items,
+    ).slice(0, 10)
 
     return { playlist, tracks }
   } else {

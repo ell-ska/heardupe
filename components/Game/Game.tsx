@@ -36,7 +36,6 @@ const Game = ({ playlist, tracks, type }: GameProps) => {
 
   useEffect(() => {
     reset()
-    console.log(tracks)
     // eslint-disable-next-line
   }, [])
 

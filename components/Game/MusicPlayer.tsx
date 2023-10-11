@@ -2,21 +2,29 @@
 
 import { useRef, useState } from 'react'
 
-import { useStatus } from '@/hooks/useGame'
+import { useGame } from '@/hooks/useGame'
 import { Play, Pause } from '@/components/Icons'
 
 const MusicPlayer = () => {
-  const { stage, levelOver, currentTrack } = useStatus()
+  const { stage, isLevelOver, currentTrack, isPlaying, setIsPlaying } = useGame(
+    state => ({
+      stage: state.stage,
+      isLevelOver: state.isLevelOver,
+      currentTrack: state.currentTrack,
+      isPlaying: state.isPlaying,
+      setIsPlaying: state.setIsPlaying,
+    }),
+  )
 
   const seconds = [1, 2, 4, 7, 11, 16]
   const stagePercentages = [6.25, 12.5, 25, 43.75, 68.75, 100]
 
-  const secondsToPlay = (levelOver ? seconds.at(-1) : seconds[stage - 1]) || 16
-  const unlockedStagePercentage = levelOver
+  const secondsToPlay =
+    (isLevelOver ? seconds.at(-1) : seconds[stage - 1]) || 16
+  const unlockedStagePercentage = isLevelOver
     ? stagePercentages.at(-1)
     : stagePercentages[stage - 1]
 
-  const [isPlaying, setIsPlaying] = useState(false)
   const [currentDisplayTime, setCurrentDisplayTime] = useState(0)
   const [progressWidth, setProgressWidth] = useState(0)
 

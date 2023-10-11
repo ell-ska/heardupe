@@ -1,10 +1,14 @@
 import Link from 'next/link'
 
-import { useGuesses, useStatus } from '@/hooks/useGame'
+import { useGame } from '@/hooks/useGame'
 import Button, { buttonVariants } from '@/components/Button'
 
+type GameButtonsProps = {
+  skip: () => void
+}
+
 const ListenOnSpotify = () => {
-  const { currentTrack } = useStatus()
+  const { currentTrack } = useGame()
 
   return (
     <Link
@@ -19,8 +23,10 @@ const ListenOnSpotify = () => {
 }
 
 const Skip = () => {
-  const { stage } = useStatus()
-  const { skipGuess } = useGuesses()
+  const { stage, skipGuess } = useGame(state => ({
+    stage: state.stage,
+    skipGuess: state.skipGuess,
+  }))
 
   return (
     <Button onClick={skipGuess}>
@@ -38,11 +44,14 @@ const Home = () => {
 }
 
 const NextLevel = () => {
-  const { levelOver } = useStatus()
+  const { isLevelOver, levelOver, next } = useGame()
 
   return (
-    <Button variant='outline'>
-      {levelOver ? 'Next song' : 'Reveal answer'}
+    <Button
+      variant='outline'
+      onClick={() => (isLevelOver ? next('level') : levelOver())}
+    >
+      {isLevelOver ? 'Next song' : 'Reveal answer'}
     </Button>
   )
 }
@@ -56,20 +65,24 @@ const PlayAgain = () => {
 }
 
 const GameButtons = () => {
-  const { level, levelOver, gameOver } = useStatus()
+  const { level, isLevelOver, isGameOver } = useGame(state => ({
+    level: state.level,
+    isLevelOver: state.isLevelOver,
+    isGameOver: state.isGameOver,
+  }))
 
   return (
     <div className='mb-6 flex flex-col gap-4 px-6 lg:flex-row lg:justify-between'>
-      {levelOver && !gameOver ? (
+      {isLevelOver && !isGameOver ? (
         <ListenOnSpotify />
-      ) : gameOver ? (
+      ) : isGameOver ? (
         <Home />
       ) : (
         <Skip />
       )}
-      {gameOver ? (
+      {isGameOver ? (
         <PlayAgain />
-      ) : level === 9 && levelOver ? (
+      ) : level === 9 && isLevelOver ? (
         <FinalScore />
       ) : (
         <NextLevel />

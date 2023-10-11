@@ -25,6 +25,7 @@ const Search = () => {
         placeholder='Guess the song title'
         className='w-full rounded-full px-8 py-4 text-neutral-900 outline-none'
       />
+      {/* FIX: focus switching once dialog renders */}
       <Dialog.Root modal={false} open={open} onOpenChange={setOpen}>
         <Dialog.Portal container={container}>
           <Dialog.Content className='absolute top-full w-full outline-none'>
@@ -35,7 +36,7 @@ const Search = () => {
                   <SearchItem
                     key={result.id}
                     {...result}
-                    clear={() => setSearch(null)}
+                    resetSearch={() => setSearch(null)}
                   />
                 ))}
               {searchResults?.tracks?.items.length === 0 && (

@@ -1,39 +1,120 @@
-import { create } from 'zustand'
-import type { PlaylistedTrack, Track } from '@spotify/web-api-ts-sdk'
+import { create, type StateCreator } from 'zustand'
+import type { Track } from '@spotify/web-api-ts-sdk'
 
-type guess = { id?: string; value: string; skipped?: boolean }
+type StateSlice = {
+  guesses: { value: string; skipped?: boolean; id?: string }[]
+  stage: number
+  level: number
+  isLevelOver: boolean
+  levelOver: () => void
+  isLevelWon: boolean
+  isGameOver: boolean
+  isPlaying: boolean
+  setIsPlaying: (state: boolean) => void
+}
 
-type guessStore = {
-  guesses: guess[]
-  submitGuess: (guess: guess) => void
+const createStateSlice: StateCreator<StateSlice> = set => ({
+  guesses: [],
+  stage: 1,
+  level: 1,
+  isLevelOver: false,
+  levelOver: () => set({ isLevelOver: true }),
+  isLevelWon: false,
+  isGameOver: false,
+  isPlaying: false,
+  setIsPlaying: state => set({ isPlaying: state }),
+})
+
+type InfoSlice = {
+  amountOfLevels: number
+  setAmountOfLevels: (number: number) => void
+  currentTrack: Track | null
+  setCurrentTrack: (track: Track) => void
+}
+
+const createInfoSlice: StateCreator<InfoSlice> = set => ({
+  amountOfLevels: 0,
+  setAmountOfLevels: number => set({ amountOfLevels: number }),
+  currentTrack: null,
+  setCurrentTrack: track => set({ currentTrack: track }),
+})
+
+type NextSlice = {
+  next: (type?: 'stage' | 'level') => void
+}
+
+const createNextSlice: StateCreator<
+  StateSlice & InfoSlice,
+  [],
+  [],
+  NextSlice
+> = (set, get) => ({
+  next: type =>
+    set(() => {
+      if (type === 'level') {
+        if (get().level < get().amountOfLevels - 1) {
+          return {
+            level: get().level + 1,
+            isLevelOver: false,
+            guesses: [],
+            stage: 1,
+            isPlaying: false,
+          }
+        } else {
+          return { isGameOver: true }
+        }
+      } else {
+        if (get().stage < 6) {
+          return { stage: get().stage + 1 }
+        } else {
+          return { isLevelOver: true }
+        }
+      }
+    }),
+})
+
+type SubmitSlice = {
+  submitGuess: (guess: { value: string; id: string }) => void
   skipGuess: () => void
 }
 
-type statusStore = {
-  currentTrack: Track | null
-  setCurrentTrack: (track: Track) => void
-  stage: 1 | 2 | 3 | 4 | 5 | 6
-  level: number
-  levelOver: boolean
-  gameOver: boolean
-}
-
-const useGuesses = create<guessStore>(set => ({
-  guesses: [],
-  submitGuess: guess => set(prev => ({ guesses: [...prev.guesses, guess] })),
+const createSubmitSlice: StateCreator<
+  StateSlice & InfoSlice & NextSlice,
+  [],
+  [],
+  SubmitSlice
+> = (set, get) => ({
+  submitGuess: guess =>
+    set(() => {
+      console.log('submitted')
+      if (guess.id === get().currentTrack?.id) {
+        console.log('correct')
+        return { isLevelOver: true, isLevelWon: true }
+      } else if (get().guesses.find(prevGuess => prevGuess.id === guess.id)) {
+        console.log('duplicate guess')
+        return {}
+      } else {
+        console.log('wrong')
+        get().next()
+        return { guesses: [...get().guesses, guess] }
+      }
+    }),
   skipGuess: () =>
-    set(prev => ({
-      guesses: [...prev.guesses, { skipped: true, value: 'Skipped' }],
-    })),
-}))
+    set(() => {
+      get().next()
+      return {
+        guesses: [...get().guesses, { skipped: true, value: 'Skipped' }],
+      }
+    }),
+})
 
-const useStatus = create<statusStore>(set => ({
-  currentTrack: null,
-  setCurrentTrack: track => set({ currentTrack: track }),
-  stage: 1,
-  level: 1,
-  levelOver: false,
-  gameOver: false,
-}))
+const useGame = create<StateSlice & InfoSlice & NextSlice & SubmitSlice>()(
+  (...a) => ({
+    ...createStateSlice(...a),
+    ...createInfoSlice(...a),
+    ...createNextSlice(...a),
+    ...createSubmitSlice(...a),
+  }),
+)
 
-export { useGuesses, useStatus }
+export { useGame }

@@ -6,7 +6,6 @@ type StateSlice = {
   stage: number
   level: number
   isLevelOver: boolean
-  levelOver: () => void
   isLevelWon: boolean
   isGameOver: boolean
   isPlaying: boolean
@@ -18,7 +17,6 @@ const createStateSlice: StateCreator<StateSlice> = set => ({
   stage: 1,
   level: 1,
   isLevelOver: false,
-  levelOver: () => set({ isLevelOver: true }),
   isLevelWon: false,
   isGameOver: false,
   isPlaying: false,
@@ -40,7 +38,7 @@ const createInfoSlice: StateCreator<InfoSlice> = set => ({
 })
 
 type NextSlice = {
-  next: (type?: 'stage' | 'level') => void
+  next: (type?: 'stage' | 'level' | 'reveal-answer') => void
 }
 
 const createNextSlice: StateCreator<
@@ -63,11 +61,13 @@ const createNextSlice: StateCreator<
         } else {
           return { isGameOver: true }
         }
+      } else if (type === 'reveal-answer') {
+        return { isLevelOver: true, isLevelWon: false }
       } else {
         if (get().stage < 6) {
           return { stage: get().stage + 1 }
         } else {
-          return { isLevelOver: true }
+          return { isLevelOver: true, isLevelWon: false }
         }
       }
     }),
@@ -86,15 +86,12 @@ const createSubmitSlice: StateCreator<
 > = (set, get) => ({
   submitGuess: guess =>
     set(() => {
-      console.log('submitted')
       if (guess.id === get().currentTrack?.id) {
-        console.log('correct')
         return { isLevelOver: true, isLevelWon: true }
       } else if (get().guesses.find(prevGuess => prevGuess.id === guess.id)) {
         console.log('duplicate guess')
         return {}
       } else {
-        console.log('wrong')
         get().next()
         return { guesses: [...get().guesses, guess] }
       }

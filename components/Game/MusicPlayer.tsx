@@ -5,6 +5,9 @@ import { useRef, useState } from 'react'
 import { useGame } from '@/hooks/useGame'
 import { Play, Pause } from '@/components/Icons'
 
+export const seconds = [1, 2, 4, 7, 11, 16]
+const stagePercentages = [6.25, 12.5, 25, 43.75, 68.75, 100]
+
 const MusicPlayer = () => {
   const { stage, isLevelOver, currentTrack, isPlaying, setIsPlaying } = useGame(
     state => ({
@@ -15,9 +18,6 @@ const MusicPlayer = () => {
       setIsPlaying: state.setIsPlaying,
     }),
   )
-
-  const seconds = [1, 2, 4, 7, 11, 16]
-  const stagePercentages = [6.25, 12.5, 25, 43.75, 68.75, 100]
 
   const secondsToPlay =
     (isLevelOver ? seconds.at(-1) : seconds[stage - 1]) || 16

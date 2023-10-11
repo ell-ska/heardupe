@@ -28,27 +28,27 @@ const Game = ({ playlist, tracks, type }: GameProps) => {
     }))
 
   useEffect(() => {
-    console.log('useeffect running')
     setCurrentTrack(
       (type === 'playlist'
         ? tracks[level - 1].track
         : tracks[level - 1]) as Track,
     )
     setAmountOfLevels(tracks.length)
-  }, [level, tracks, setCurrentTrack, type, setAmountOfLevels])
+    // eslint-disable-next-line
+  }, [level])
 
   return (
     <>
-      <div className='main mt-8 grid min-h-[calc(100svh-7.5rem)] grow grid-rows-[min-content,1fr,min-content] self-center lg:min-h-0'>
+      <div className='main mt-8 flex min-h-[calc(100svh-7.5rem)] grow flex-col self-center lg:min-h-0'>
         {isGameOver || isLevelOver ? (
-          <EndScreen />
+          <EndScreen playlist={playlist} />
         ) : (
           <>
             <Search />
             <Guesses />
           </>
         )}
-        <MusicPlayer />
+        {!isGameOver && <MusicPlayer />}
       </div>
       <GameButtons />
     </>

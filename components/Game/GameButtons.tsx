@@ -3,10 +3,6 @@ import Link from 'next/link'
 import { useGame } from '@/hooks/useGame'
 import Button, { buttonVariants } from '@/components/Button'
 
-type GameButtonsProps = {
-  skip: () => void
-}
-
 const ListenOnSpotify = () => {
   const { currentTrack } = useGame()
 
@@ -43,21 +39,31 @@ const Home = () => {
   )
 }
 
-const NextLevel = () => {
-  const { isLevelOver, levelOver, next } = useGame()
+const Next = () => {
+  const { level, isLevelOver, amountOfLevels, next } = useGame(state => ({
+    level: state.level,
+    isLevelOver: state.isLevelOver,
+    amountOfLevels: state.amountOfLevels,
+    next: state.next,
+  }))
+
+  const isLastLevel = level === amountOfLevels - 1
+
+  const name =
+    isLevelOver && isLastLevel
+      ? 'Final score'
+      : isLevelOver
+      ? 'Next song'
+      : 'Reveal answer'
 
   return (
     <Button
       variant='outline'
-      onClick={() => (isLevelOver ? next('level') : levelOver())}
+      onClick={() => next(isLevelOver ? 'level' : 'reveal-answer')}
     >
-      {isLevelOver ? 'Next song' : 'Reveal answer'}
+      {name}
     </Button>
   )
-}
-
-const FinalScore = () => {
-  return <Button variant='outline'>Final score</Button>
 }
 
 const PlayAgain = () => {
@@ -65,8 +71,7 @@ const PlayAgain = () => {
 }
 
 const GameButtons = () => {
-  const { level, isLevelOver, isGameOver } = useGame(state => ({
-    level: state.level,
+  const { isLevelOver, isGameOver } = useGame(state => ({
     isLevelOver: state.isLevelOver,
     isGameOver: state.isGameOver,
   }))
@@ -80,13 +85,7 @@ const GameButtons = () => {
       ) : (
         <Skip />
       )}
-      {isGameOver ? (
-        <PlayAgain />
-      ) : level === 9 && isLevelOver ? (
-        <FinalScore />
-      ) : (
-        <NextLevel />
-      )}
+      {isGameOver ? <PlayAgain /> : <Next />}
     </div>
   )
 }

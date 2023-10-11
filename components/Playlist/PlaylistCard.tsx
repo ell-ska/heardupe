@@ -5,7 +5,23 @@ import type { Artist, SimplifiedPlaylist } from '@spotify/web-api-ts-sdk'
 import { cn } from '@/utils/classnames'
 import { PlayBg } from '@/components/Icons'
 
-type PlaylistCardProps = (Omit<SimplifiedPlaylist, 'tracks'> | Artist) & {
+type StaticPlaylist = {
+  id: string
+  type: string
+  description: string
+  name: string
+  images: {
+    height: number
+    width: number
+    url: string
+  }[]
+}
+
+type PlaylistCardProps = (
+  | Omit<SimplifiedPlaylist, 'tracks'>
+  | Artist
+  | StaticPlaylist
+) & {
   description?: string
   lg?: boolean
   featured?: boolean

@@ -5,7 +5,7 @@ import type { ItemTypes } from '@spotify/web-api-ts-sdk'
 import sdk from '@/lib/spotify-client'
 import useDebounce from '@/hooks/useDebounce'
 
-const useSearch = (type: ItemTypes[]) => {
+const useSearch = (type: ItemTypes[], limit?: number) => {
   const [search, setSearch] = useState<string | null>(null)
   const debouncedSearch = useDebounce(search, 300)
 
@@ -13,7 +13,8 @@ const useSearch = (type: ItemTypes[]) => {
     `api/search/${debouncedSearch}`,
     () => {
       if (!debouncedSearch) return null
-      return sdk.search(debouncedSearch, type)
+      // @ts-ignore, asks for limit to be of type 0 | 1 | 2 etc.
+      return sdk.search(debouncedSearch, type, undefined, limit || undefined)
     },
   )
 

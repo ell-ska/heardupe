@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@radix-ui/react-dialog": "^1.0.5",
     "@spotify/web-api-ts-sdk": "^1.1.2",
     "@types/spotify-web-api-node": "^5.0.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "cmdk": "^0.2.0",
     "framer-motion": "^10.16.4",
     "next": "13.5.4",
     "next-auth": "^4.23.2",

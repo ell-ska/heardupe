@@ -1,51 +1,39 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import * as Dialog from '@radix-ui/react-dialog'
+import { Command } from 'cmdk'
 
 import { useSearch } from '@/hooks/useSearch'
 import SearchItem from './SearchItem'
 
 const Search = () => {
-  const container = document.getElementById('container')
-
-  const { search, setSearch, searchResults } = useSearch(['track'])
-  const [open, setOpen] = useState(false)
-
-  useEffect(() => {
-    setOpen(searchResults ? true : false)
-  }, [searchResults])
+  const { search, setSearch, searchResults } = useSearch(['track'], 5)
 
   return (
-    <div className='relative' id='container'>
-      <input
-        type='text'
-        value={search || ''}
-        onChange={e => setSearch(e.target.value)}
-        placeholder='Guess the song title'
-        className='w-full rounded-full px-8 py-4 text-neutral-900 outline-none'
-      />
-      {/* FIX: focus switching once dialog renders */}
-      <Dialog.Root modal={false} open={open} onOpenChange={setOpen}>
-        <Dialog.Portal container={container}>
-          <Dialog.Content className='absolute top-full w-full outline-none'>
-            <div className='mt-4 flex flex-col rounded-2xl bg-neutral-800 py-4'>
-              {searchResults?.tracks?.items
-                .slice(0, 5)
-                .map(result => (
-                  <SearchItem
-                    key={result.id}
-                    {...result}
-                    resetSearch={() => setSearch(null)}
-                  />
-                ))}
-              {searchResults?.tracks?.items.length === 0 && (
-                <div className='text-center'>No songs found with that name</div>
-              )}
-            </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+    <div className='relative'>
+      <Command shouldFilter={false}>
+        <Command.Input
+          value={search || ''}
+          onValueChange={setSearch}
+          className='w-full rounded-full px-8 py-4 text-neutral-900 outline-none'
+          placeholder='Guess the song title'
+        />
+        {searchResults && (
+          <Command.List className='absolute top-full mt-4 flex w-full flex-col rounded-2xl bg-neutral-800 py-4'>
+            {searchResults?.tracks?.items.map(result => (
+              <SearchItem
+                key={result.id}
+                {...result}
+                resetSearch={() => setSearch(null)}
+              />
+            ))}
+            {searchResults?.tracks?.items.length === 0 && (
+              <Command.Empty className='text-center'>
+                No songs found with that name
+              </Command.Empty>
+            )}
+          </Command.List>
+        )}
+      </Command>
     </div>
   )
 }

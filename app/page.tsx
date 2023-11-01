@@ -1,5 +1,4 @@
-import { getServerSession } from 'next-auth'
-
+import { initialProfile } from '@/lib/initial-profile'
 import PlaylistCard from '@/components/Playlist/PlaylistCard'
 import PlaylistGallery from '@/components/Playlist/PlaylistGallery'
 import placeholderImage from '@/public/placeholder.jpeg'
@@ -19,7 +18,7 @@ const staticPlaylist = {
 }
 
 const Home = async () => {
-  const session = await getServerSession()
+  const profile = await initialProfile()
 
   return (
     <main className='main mt-8 grow'>
@@ -33,7 +32,7 @@ const Home = async () => {
           </h2>
         </div>
       </div>
-      {session && <PlaylistGallery />}
+      {profile && <PlaylistGallery />}
     </main>
   )
 }

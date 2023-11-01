@@ -9,6 +9,7 @@ import Guesses from '@/components/Game/Guesses'
 import MusicPlayer from '@/components/Game/MusicPlayer'
 import GameButtons from '@/components/Game/GameButtons'
 import EndScreen from '@/components/Game/EndScreen'
+import Stats from '@/components/Game/Stats'
 import type { gamePlaylist, gameTracks } from '@/types'
 
 type GameProps = {
@@ -51,11 +52,12 @@ const Game = ({ playlist, tracks, type }: GameProps) => {
 
   return (
     <>
-      <div className='main mt-8 flex min-h-[calc(100svh-7.5rem)] grow flex-col self-center lg:min-h-0'>
+      <div className='main mt-4 flex min-h-[calc(100svh-7.5rem)] grow flex-col self-center lg:min-h-0'>
         {isGameOver || isLevelOver ? (
           <EndScreen playlist={playlist} />
         ) : (
           <>
+            <Stats />
             <Search />
             <Guesses />
           </>

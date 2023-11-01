@@ -11,12 +11,15 @@ type EndScreenProps = {
 }
 
 const EndScreen = ({ playlist }: EndScreenProps) => {
-  const { currentTrack, isLevelWon, stage, isGameOver } = useGame(state => ({
-    currentTrack: state.currentTrack,
-    isLevelWon: state.isLevelWon,
-    stage: state.stage,
-    isGameOver: state.isGameOver,
-  }))
+  const { currentTrack, isLevelWon, stage, isGameOver, totalScore } = useGame(
+    state => ({
+      currentTrack: state.currentTrack,
+      isLevelWon: state.isLevelWon,
+      stage: state.stage,
+      isGameOver: state.isGameOver,
+      totalScore: state.totalScore,
+    }),
+  )
 
   const exclamation = isLevelWon ? 'Amazing!' : 'You lost!'
   const message = isLevelWon
@@ -55,9 +58,9 @@ const EndScreen = ({ playlist }: EndScreenProps) => {
 
   const GameEndedScreen = () => {
     return (
-      <div className='-mt-8 flex grow flex-col justify-center gap-6 md:flex-row md:items-center md:gap-8'>
+      <div className='-mt-8 flex grow flex-col justify-center gap-6 self-center md:flex-row md:items-center md:gap-8'>
         <Image
-          className='aspect-square object-cover sm:max-w-[22rem]'
+          className='aspect-square max-w-xs object-cover md:max-w-sm'
           src={playlistImage.url}
           width={playlistImage.width}
           height={playlistImage.height}
@@ -65,7 +68,16 @@ const EndScreen = ({ playlist }: EndScreenProps) => {
         />
         <div>
           <h3 className='mb-3 text-2xl text-neutral-400'>Good job!</h3>
-          <h2 className='text-4xl font-bold'>{playlist.name}</h2>
+          <h2 className='mb-6 text-4xl font-bold'>{playlist.name}</h2>
+          <div className='flex gap-6'>
+            <p>
+              Score: <b>{totalScore.toLocaleString()}</b>
+            </p>
+            <span>|</span>
+            <p>
+              High score: <b>5 000</b>
+            </p>
+          </div>
         </div>
       </div>
     )

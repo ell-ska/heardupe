@@ -11,6 +11,9 @@ type State = {
   isPlaying: boolean
   amountOfLevels: number
   currentTrack: Track | null
+  levelScore: number
+  totalScore: number
+  // highScore: number
 }
 
 type Actions = {
@@ -33,6 +36,9 @@ const initialGameState: State = {
   isPlaying: false,
   amountOfLevels: 0,
   currentTrack: null,
+  levelScore: 600,
+  totalScore: 0,
+  // highScore: 0,
 }
 
 const useGame = create<State & Actions>((set, get) => ({
@@ -49,9 +55,11 @@ const useGame = create<State & Actions>((set, get) => ({
           return {
             level: get().level + 1,
             isLevelOver: false,
+            isLevelWon: false,
             guesses: [],
             stage: 1,
             isPlaying: false,
+            levelScore: 600,
           }
         } else {
           return { isGameOver: true }
@@ -60,7 +68,7 @@ const useGame = create<State & Actions>((set, get) => ({
         return { isLevelOver: true, isLevelWon: false }
       } else {
         if (get().stage < 6) {
-          return { stage: get().stage + 1 }
+          return { stage: get().stage + 1, levelScore: get().levelScore - 100 }
         } else {
           return { isLevelOver: true, isLevelWon: false }
         }
@@ -70,7 +78,11 @@ const useGame = create<State & Actions>((set, get) => ({
   submitGuess: guess =>
     set(() => {
       if (guess.id === get().currentTrack?.id) {
-        return { isLevelOver: true, isLevelWon: true }
+        return {
+          isLevelOver: true,
+          isLevelWon: true,
+          totalScore: get().totalScore + get().levelScore,
+        }
       } else if (get().guesses.find(prevGuess => prevGuess.id === guess.id)) {
         console.log('duplicate guess')
         return {}

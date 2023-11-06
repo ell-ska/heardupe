@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import axios from 'axios'
 import type { Track } from '@spotify/web-api-ts-sdk'
 
 type State = {
@@ -9,15 +10,24 @@ type State = {
   isLevelWon: boolean
   isGameOver: boolean
   isPlaying: boolean
-  amountOfLevels: number
   currentTrack: Track | null
+  amountOfLevels: number
+  id: string | null
+  type: string | null
   levelScore: number
   totalScore: number
-  // highScore: number
 }
 
 type Actions = {
-  setAmountOfLevels: (number: number) => void
+  setInitialInfo: ({
+    amountOfLevels,
+    id,
+    type,
+  }: {
+    amountOfLevels: number
+    id: string
+    type: string
+  }) => void
   setCurrentTrack: (track: Track) => void
   setIsPlaying: (state: boolean) => void
   next: (type?: 'stage' | 'level' | 'reveal-answer') => void
@@ -34,17 +44,19 @@ const initialGameState: State = {
   isLevelWon: false,
   isGameOver: false,
   isPlaying: false,
-  amountOfLevels: 0,
   currentTrack: null,
+  amountOfLevels: 0,
+  id: null,
+  type: null,
   levelScore: 600,
   totalScore: 0,
-  // highScore: 0,
 }
 
 const useGame = create<State & Actions>((set, get) => ({
   ...initialGameState,
 
-  setAmountOfLevels: number => set({ amountOfLevels: number }),
+  setInitialInfo: ({ amountOfLevels, id, type }) =>
+    set({ amountOfLevels, id, type }),
   setCurrentTrack: track => set({ currentTrack: track }),
   setIsPlaying: state => set({ isPlaying: state }),
 
@@ -62,6 +74,12 @@ const useGame = create<State & Actions>((set, get) => ({
             levelScore: 600,
           }
         } else {
+          axios.post('/api/game', {
+            score: get().totalScore,
+            id: get().id,
+            type: get().type,
+          })
+
           return { isGameOver: true }
         }
       } else if (type === 'reveal-answer') {

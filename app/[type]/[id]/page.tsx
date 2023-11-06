@@ -24,7 +24,12 @@ const Page = ({ params: { type, id } }: PageProps) => {
   return (
     <main className='relative flex w-full grow flex-col'>
       {data?.playlist && data?.tracks && (
-        <Game playlist={data?.playlist} tracks={data?.tracks} type={type} />
+        <Game
+          playlist={data?.playlist}
+          tracks={data?.tracks}
+          type={type}
+          id={id}
+        />
       )}
     </main>
   )

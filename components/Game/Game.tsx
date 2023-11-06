@@ -16,27 +16,29 @@ type GameProps = {
   playlist: gamePlaylist
   tracks: gameTracks
   type: string
+  id: string
 }
 
-const Game = ({ playlist, tracks, type }: GameProps) => {
+const Game = ({ playlist, tracks, type, id }: GameProps) => {
   const {
     level,
     isLevelOver,
     isGameOver,
     setCurrentTrack,
-    setAmountOfLevels,
+    setInitialInfo,
     reset,
   } = useGame(state => ({
     level: state.level,
     isLevelOver: state.isLevelOver,
     isGameOver: state.isGameOver,
     setCurrentTrack: state.setCurrentTrack,
-    setAmountOfLevels: state.setAmountOfLevels,
+    setInitialInfo: state.setInitialInfo,
     reset: state.reset,
   }))
 
   useEffect(() => {
     reset()
+    setInitialInfo({ amountOfLevels: tracks.length, id, type })
     // eslint-disable-next-line
   }, [])
 
@@ -46,7 +48,6 @@ const Game = ({ playlist, tracks, type }: GameProps) => {
         ? tracks[level - 1].track
         : tracks[level - 1]) as Track,
     )
-    setAmountOfLevels(tracks.length)
     // eslint-disable-next-line
   }, [level])
 

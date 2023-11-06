@@ -14,7 +14,6 @@ model Profile {
 
   playedGames Game[]
   totalScore  Int      @default(0)
-  highScore   Int      @default(0)
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

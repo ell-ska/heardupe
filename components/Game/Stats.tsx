@@ -9,12 +9,9 @@ const Stats = () => {
   }))
 
   return (
-    <div className='mb-4 flex px-8 text-neutral-400'>
-      <span className='flex-1'>{`Song: ${level}/${amountOfLevels}`}</span>
-      <span className='flex-1 text-right sm:text-center'>
-        Score: {totalScore + levelScore}
-      </span>
-      <span className='hidden flex-1 text-right sm:block'>High score: -</span>
+    <div className='mb-4 flex justify-between px-8 text-neutral-400'>
+      <span>{`Song: ${level}/${amountOfLevels}`}</span>
+      <span>Score: {totalScore + levelScore}</span>
     </div>
   )
 }

@@ -13,6 +13,7 @@ const GET = async () => {
     const sdk = await getServerSdk()
 
     if (!profile) {
+      new NextResponse('No profile', { status: 401 })
       return redirect('/')
     }
 
@@ -40,7 +41,7 @@ const GET = async () => {
       },
       {
         metric: 'Total score',
-        value: 0,
+        value: profile.totalScore,
       },
       {
         metric: 'Top artist',

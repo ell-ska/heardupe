@@ -2,6 +2,8 @@ import { initialProfile } from '@/lib/initial-profile'
 import PlaylistCard from '@/components/Playlist/PlaylistCard'
 import PlaylistGallery from '@/components/Playlist/PlaylistGallery'
 import placeholderImage from '@/public/placeholder.jpeg'
+import { getServerSession } from 'next-auth'
+import { authOptions } from './api/auth/[...nextauth]/auth-options'
 
 const staticPlaylist = {
   id: '2RQXRUsr4IW1f3mKyKsy4B',
@@ -19,6 +21,8 @@ const staticPlaylist = {
 
 const Home = async () => {
   const profile = await initialProfile()
+  const session = await getServerSession(authOptions)
+  console.log(session)
 
   return (
     <main className='main mt-8 grow'>

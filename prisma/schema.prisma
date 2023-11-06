@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Profile {
-  id          String   @id @default(uuid())
+  id          String   @id
   email       String   @unique
 
   playedGames Game[]

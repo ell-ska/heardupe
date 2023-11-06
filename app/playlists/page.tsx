@@ -1,7 +1,7 @@
 'use client'
 
 import useSwr from 'swr'
-import sdk from '@/lib/spotify-client'
+import sdk from '@/lib/spotify-sdk/spotify-client'
 
 import PlaylistSection from '@/components/Playlist/PlaylistSection'
 

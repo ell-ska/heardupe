@@ -1,7 +1,9 @@
 import type { Market, PlaylistedTrack, Track } from '@spotify/web-api-ts-sdk'
 
-import sdk from '@/lib/spotify-client'
+import sdk from '@/lib/spotify-sdk/spotify-client'
 import type { gameData, gameTracks } from '@/types'
+
+const fetcher = (url: string) => fetch(url).then(r => r.json())
 
 const getGameData = async (type: string, id: string): Promise<gameData> => {
   const shuffle = <T>(array: T[]): T[] => {
@@ -40,4 +42,4 @@ const getGameData = async (type: string, id: string): Promise<gameData> => {
   }
 }
 
-export { getGameData }
+export { fetcher, getGameData }

@@ -2,7 +2,7 @@
 
 import useSWR from 'swr'
 
-import { getGameData } from '@/lib/fetchers'
+import { getGameData } from '@/lib/spotify-sdk/fetchers'
 import Game from '@/components/Game/Game'
 
 type PageProps = {

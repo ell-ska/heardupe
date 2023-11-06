@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import useSWR from 'swr'
-import sdk from '@/lib/spotify-client'
+import sdk from '@/lib/spotify-sdk/spotify-client'
 
 import PlaylistCard from './PlaylistCard'
 import Button from '../Button'

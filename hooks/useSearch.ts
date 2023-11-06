@@ -2,7 +2,7 @@ import { useState } from 'react'
 import useSWR from 'swr'
 import type { ItemTypes } from '@spotify/web-api-ts-sdk'
 
-import sdk from '@/lib/spotify-client'
+import sdk from '@/lib/spotify-sdk/spotify-client'
 import useDebounce from '@/hooks/useDebounce'
 
 const useSearch = (type: ItemTypes[], limit?: number) => {

@@ -36,8 +36,8 @@ const EndScreen = ({ playlist }: EndScreenProps) => {
           <Image
             className='my-6 max-w-[18rem]'
             src={levelImage.url}
-            width={levelImage.width}
-            height={levelImage.height}
+            width={levelImage.width || 288}
+            height={levelImage.height || 288}
             alt={`album cover for ${currentTrack.name}`}
           />
         ) : (
@@ -62,8 +62,8 @@ const EndScreen = ({ playlist }: EndScreenProps) => {
         <Image
           className='aspect-square max-w-xs object-cover md:max-w-sm'
           src={playlistImage.url}
-          width={playlistImage.width}
-          height={playlistImage.height}
+          width={playlistImage.width || 288}
+          height={playlistImage.height || 288}
           alt={`cover for ${playlist.name}`}
         />
         <div>

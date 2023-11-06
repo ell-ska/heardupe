@@ -13,4 +13,9 @@ type gameData = {
   tracks: gameTracks
 }
 
-export type { gamePlaylist, gameTracks, gameData }
+type statistic = {
+  metric: string
+  value: string | number
+}
+
+export type { gamePlaylist, gameTracks, gameData, statistic }

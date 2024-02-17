@@ -12,6 +12,11 @@ const nextConfig = {
       },
     ],
   },
+  logging: {
+    fetches: {
+      fullUrl: false,
+    },
+  },
 }
 
 module.exports = nextConfig

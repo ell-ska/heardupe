@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import { Lexend, Climate_Crisis } from 'next/font/google'
-import { getServerSession } from 'next-auth'
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
 import { cn } from '@/utils/classnames'
 import AuthSessionProvider from '@/providers/AuthSessionProvider'
 import Header from '@/components/Header/Header'
@@ -29,8 +27,6 @@ export const metadata: Metadata = {
 }
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
-  const session = await getServerSession(authOptions)
-
   return (
     <html lang='en'>
       <body
@@ -40,7 +36,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
           'flex min-h-screen flex-col items-center bg-neutral-900 font-primary text-white',
         )}
       >
-        <AuthSessionProvider session={session}>
+        <AuthSessionProvider>
           <Header />
           {children}
           <Footer />

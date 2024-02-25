@@ -1,6 +1,6 @@
 import type { Market, PlaylistedTrack, Track } from '@spotify/web-api-ts-sdk'
 
-import sdk from '@/lib/spotify-sdk/spotify-client'
+import sdk from '@/lib/spotify/spotify-client'
 import type { gameData, gameTracks } from '@/types'
 
 const fetcher = (url: string) => fetch(url).then(r => r.json())

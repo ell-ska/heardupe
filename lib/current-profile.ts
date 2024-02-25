@@ -1,13 +1,9 @@
-import { getServerSession } from 'next-auth'
-
+import { auth } from '@/auth'
+import { AuthUser } from '@/types'
 import { db } from '@/lib/db'
-import {
-  AuthUser,
-  authOptions,
-} from '@/app/api/auth/[...nextauth]/auth-options'
 
 const currentProfile = async () => {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   const user = session?.user as AuthUser
 
   if (!user) return null

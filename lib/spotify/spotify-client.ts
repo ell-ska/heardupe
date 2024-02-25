@@ -8,7 +8,7 @@ import {
   SpotifyApi,
 } from '@spotify/web-api-ts-sdk'
 
-import { AuthUser } from '@/app/api/auth/[...nextauth]/auth-options'
+import { AuthUser } from '@/types'
 
 class Strategy implements IAuthStrategy {
   public getOrCreateAccessToken = (): Promise<AccessToken> => {

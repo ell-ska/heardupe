@@ -1,28 +1,27 @@
-import type { JWT } from 'next-auth/jwt'
-import type { Account, AuthOptions } from 'next-auth'
+import NextAuth, { Account } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
+import SpotifyProvider from 'next-auth/providers/spotify'
 
-import { spotifyProfile } from './spotify-profile'
-import { refreshAccessToken } from './refresh-access-token'
+import { AuthUser } from '@/types'
+import { authURL } from '@/lib/auth/configs'
+import { refreshAccessToken } from '@/lib/auth/refresh-access-token'
 
-type AuthUser = {
-  name: string
-  email: string
-  image: string
-  access_token: string
-  token_type: string
-  expires_at: number
-  expires_in: number
-  refresh_token: string
-  scope: string
-  id: string
-}
-
-const authOptions: AuthOptions = {
-  providers: [spotifyProfile],
+export const {
+  handlers: { GET, POST },
+  signIn,
+  signOut,
+  auth,
+} = NextAuth({
+  providers: [
+    SpotifyProvider({
+      clientId: process.env.SPOTIFY_CLIENT_ID,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      authorization: authURL.toString(),
+    }),
+  ],
   session: {
     maxAge: 60 * 60, // 1hr
   },
-  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, account }: { token: JWT; account: Account | null }) {
       if (account) {
@@ -62,10 +61,7 @@ const authOptions: AuthOptions = {
 
       session.user = user
       session.error = token.error
-
       return session
     },
   },
-}
-
-export { authOptions, type AuthUser }
+})

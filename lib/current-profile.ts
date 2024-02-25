@@ -10,7 +10,7 @@ const currentProfile = async () => {
 
   const profile = await db.profile.findUnique({
     where: {
-      id: user.id,
+      email: user.email,
     },
   })
 

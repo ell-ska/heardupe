@@ -1,8 +1,8 @@
-import NextAuth, { Account } from 'next-auth'
-import { JWT } from 'next-auth/jwt'
+import NextAuth from 'next-auth'
 import SpotifyProvider from 'next-auth/providers/spotify'
 
 import { AuthUser } from '@/types'
+import { db } from '@/lib/db'
 import { authURL } from '@/lib/auth/configs'
 import { refreshAccessToken } from '@/lib/auth/refresh-access-token'
 
@@ -22,10 +22,39 @@ export const {
   session: {
     maxAge: 60 * 60, // 1hr
   },
+  pages: {
+    signIn: '/auth/login',
+    error: '/auth/error',
+  },
   callbacks: {
-    async jwt({ token, account }: { token: JWT; account: Account | null }) {
+    async signIn({ user }) {
+      const existingProfile = await db.profile.findUnique({
+        where: {
+          email: user.email as string,
+        },
+      })
+
+      if (!existingProfile) {
+        try {
+          if (!user.id) throw Error('no user id')
+          if (!user.email) throw Error('no user email')
+
+          await db.profile.create({
+            data: {
+              email: user.email,
+            },
+          })
+          console.log('new profile created')
+        } catch (error) {
+          console.error('[SIGN_IN_NEW_USER_ERROR]', error)
+        }
+      }
+
+      console.log('sign in complete')
+      return true
+    },
+    async jwt({ token, account }) {
       if (account) {
-        console.log('sign in complete')
         return {
           ...token,
           access_token: account.access_token,

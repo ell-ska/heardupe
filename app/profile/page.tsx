@@ -3,8 +3,8 @@
 import Image from 'next/image'
 import useSWR from 'swr'
 
-import sdk from '@/lib/spotify-sdk/spotify-client'
-import { fetcher } from '@/lib/spotify-sdk/fetchers'
+import sdk from '@/lib/spotify/spotify-client'
+import { fetcher } from '@/lib/spotify/fetchers'
 import { LogoutButton } from '@/components/AuthButtons'
 import Button from '@/components/Button'
 import StatisticCard from '@/components/StatisticCard'

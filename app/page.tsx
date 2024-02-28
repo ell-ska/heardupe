@@ -1,4 +1,4 @@
-import { initialProfile } from '@/lib/initial-profile'
+import { currentProfile } from '@/lib/current-profile'
 import PlaylistCard from '@/components/Playlist/PlaylistCard'
 import PlaylistGallery from '@/components/Playlist/PlaylistGallery'
 import placeholderImage from '@/public/placeholder.jpeg'
@@ -18,7 +18,7 @@ const staticPlaylist = {
 }
 
 const Home = async () => {
-  const profile = await initialProfile()
+  const profile = await currentProfile()
 
   return (
     <main className='main mt-8 grow'>

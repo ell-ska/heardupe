@@ -9,14 +9,14 @@ datasource db {
 }
 
 model Profile {
-  id          String   @id
-  email       String   @unique
+  id    String @id @default(cuid())
+  email String @unique
 
   playedGames Game[]
-  totalScore  Int      @default(0)
+  totalScore  Int    @default(0)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum GameType {
@@ -25,12 +25,12 @@ enum GameType {
 }
 
 model Game {
-  id        String   @id @default(uuid())
-  gameId    String
-  type      GameType
+  id     String   @id @default(cuid())
+  gameId String
+  type   GameType
 
   profileId String
-  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

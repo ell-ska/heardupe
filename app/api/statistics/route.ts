@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { redirect } from 'next/navigation'
 
 import { db } from '@/lib/db'
-import { getServerSdk } from '@/lib/spotify-sdk/spotify-server'
+import { getServerSdk } from '@/lib/spotify/spotify-server'
 import { currentProfile } from '@/lib/current-profile'
 import { getMostFrequent } from '@/utils/getMostFrequent'
 import type { statistic } from '@/types'

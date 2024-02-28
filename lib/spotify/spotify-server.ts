@@ -1,15 +1,12 @@
-import { getServerSession } from 'next-auth'
 import { AccessToken, SpotifyApi } from '@spotify/web-api-ts-sdk'
 
-import {
-  authOptions,
-  type AuthUser,
-} from '@/app/api/auth/[...nextauth]/auth-options'
+import { auth } from '@/auth'
+import { AuthUser } from '@/types'
 
 const clientID = process.env.SPOTIFY_CLIENT_ID || ''
 
 const getServerSdk = async () => {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   const user = session?.user as AuthUser
 
   const accessToken: AccessToken = {

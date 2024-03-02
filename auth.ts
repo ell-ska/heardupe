@@ -58,6 +58,7 @@ export const {
         return {
           ...token,
           access_token: account.access_token,
+          token_type: account.token_type,
           expires_at: account.expires_at
             ? account.expires_at * 1000
             : Date.now(),
@@ -77,6 +78,7 @@ export const {
       const user = {
         ...session.user,
         access_token: token.access_token,
+        token_type: token.token_type,
         expires_at: token.expires_at,
         expires_in: token.expires_in,
         refresh_token: token.refresh_token,

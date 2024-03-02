@@ -28,17 +28,26 @@ export const {
   },
   callbacks: {
     async signIn({ user }) {
+      if (!user.email) {
+        console.error('AUTH_SIGN_IN_EMAIL_MISSING_ERROR')
+        return false
+      }
+
+      const isBetaUser = await db.betaUserRequest.findUnique({
+        where: { email: user.email, inDashboard: true },
+      })
+      if (!isBetaUser) {
+        console.log('not beta user, aborting sign in')
+        return false
+      }
+
       const existingProfile = await db.profile.findUnique({
         where: {
-          email: user.email as string,
+          email: user.email,
         },
       })
-
       if (!existingProfile) {
         try {
-          if (!user.id) throw Error('no user id')
-          if (!user.email) throw Error('no user email')
-
           await db.profile.create({
             data: {
               email: user.email,
@@ -46,7 +55,8 @@ export const {
           })
           console.log('new profile created')
         } catch (error) {
-          console.error('[SIGN_IN_NEW_USER_ERROR]', error)
+          console.error('[AUTH_SIGN_IN_NEW_USER_ERROR]', error)
+          return false
         }
       }
 

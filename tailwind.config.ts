@@ -14,12 +14,8 @@ const config: Config = {
     extend: {
       colors: {
         primary: '#1ED760',
+        error: '#4275CA',
       },
-      // minHeight: {
-      //   // it works, it's just new
-      //   // @ts-ignore: string[] not assignable to string
-      //   screen: ['100vh', '100svh'],
-      // },
       screens: {
         xs: '480px',
         'touch-device': { raw: '(pointer: coarse) and (hover: none)' },

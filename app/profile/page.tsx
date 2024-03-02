@@ -6,7 +6,7 @@ import useSWR from 'swr'
 import sdk from '@/lib/spotify/spotify-client'
 import { fetcher } from '@/lib/spotify/fetchers'
 import { LogoutButton } from '@/components/AuthButtons'
-import Button from '@/components/Button'
+import Button from '@/components/ui/Button'
 import StatisticCard from '@/components/StatisticCard'
 import type { statistic } from '@/types'
 

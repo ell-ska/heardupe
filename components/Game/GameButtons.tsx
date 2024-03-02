@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { useGame } from '@/hooks/useGame'
-import Button, { buttonVariants } from '@/components/Button'
+import Button, { buttonVariants } from '@/components/ui/Button'
 
 const ListenOnSpotify = () => {
   const { currentTrack } = useGame()

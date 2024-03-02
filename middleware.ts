@@ -1,4 +1,4 @@
-import { auth, signOut } from '@/auth'
+import { auth, signIn } from '@/auth'
 import {
   apiAuthPrefix,
   authRoutes,
@@ -12,7 +12,7 @@ export default auth(req => {
   const isLoggedIn = !!req.auth
 
   if ((req.auth as ExtendedSession)?.error === 'RefreshAccessTokenError') {
-    signOut()
+    signIn('spotify')
   }
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)

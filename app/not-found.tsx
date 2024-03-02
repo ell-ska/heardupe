@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { buttonVariants } from '@/components/Button'
+import { buttonVariants } from '@/components/ui/Button'
 import notFoundImage from '@/public/404.svg'
 
 const NotFound = () => {

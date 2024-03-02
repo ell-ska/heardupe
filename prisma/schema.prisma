@@ -37,3 +37,13 @@ model Game {
 
   @@index([profileId])
 }
+
+model BetaUserRequest {
+  id          String  @default(cuid())
+  email       String  @unique
+  name        String
+  inDashboard Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

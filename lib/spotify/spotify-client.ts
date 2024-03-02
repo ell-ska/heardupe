@@ -8,7 +8,7 @@ import {
   SpotifyApi,
 } from '@spotify/web-api-ts-sdk'
 
-import { ExtendedUser } from '@/types'
+import type { ExtendedUser } from '@/types'
 
 class Strategy implements IAuthStrategy {
   public getOrCreateAccessToken = (): Promise<AccessToken> => {

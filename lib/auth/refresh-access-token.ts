@@ -33,6 +33,7 @@ const refreshAccessToken = async (token: JWT) => {
       ...token,
       access_token: refreshedToken.access_token,
       expires_at: refreshedToken.expires_in * 1000 + Date.now(),
+      expires_in: refreshedToken.expires_in,
       refresh_token: refreshedToken.refresh_token ?? token.refresh_token,
     }
   } catch (error) {

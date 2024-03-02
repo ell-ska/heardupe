@@ -61,6 +61,7 @@ export const {
           expires_at: account.expires_at
             ? account.expires_at * 1000
             : Date.now(),
+          expires_in: account.expires_in,
           refresh_token: account.refresh_token,
         }
       }
@@ -77,6 +78,7 @@ export const {
         ...session.user,
         access_token: token.access_token,
         expires_at: token.expires_at,
+        expires_in: token.expires_in,
         refresh_token: token.refresh_token,
       } satisfies ExtendedUser
 

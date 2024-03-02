@@ -32,13 +32,11 @@ const refreshAccessToken = async (token: JWT) => {
     return {
       ...token,
       access_token: refreshedToken.access_token,
-      token_type: refreshedToken.token_type,
       expires_at: refreshedToken.expires_in * 1000 + Date.now(),
       refresh_token: refreshedToken.refresh_token ?? token.refresh_token,
-      scope: refreshedToken.scope,
     }
   } catch (error) {
-    console.log(error)
+    console.error('[AUTH_REFRESH_ACCESS_TOKEN_ERROR]', error)
     return {
       ...token,
       error: 'RefreshAccessTokenError',

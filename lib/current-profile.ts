@@ -1,12 +1,12 @@
 import { auth } from '@/auth'
-import { AuthUser } from '@/types'
+import { ExtendedUser } from '@/types'
 import { db } from '@/lib/db'
 
 const currentProfile = async () => {
   const session = await auth()
-  const user = session?.user as AuthUser
+  const user = session?.user as ExtendedUser
 
-  if (!user) return null
+  if (!user || !user.email) return null
 
   const profile = await db.profile.findUnique({
     where: {

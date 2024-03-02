@@ -4,19 +4,15 @@ import type {
   Playlist,
   Artist,
 } from '@spotify/web-api-ts-sdk'
+import { Session, User } from 'next-auth'
 
-export type AuthUser = {
-  name: string
-  email: string
-  image: string
+export type ExtendedUser = User & {
   access_token: string
-  token_type: string
   expires_at: number
-  expires_in: number
   refresh_token: string
-  scope: string
-  id: string
 }
+
+export type ExtendedSession = Session & { error: string | undefined }
 
 type gamePlaylist = Artist | Playlist
 type gameTracks = (Track | PlaylistedTrack)[]

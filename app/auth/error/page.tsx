@@ -5,8 +5,10 @@ type AuthErrorPageProps = {
   searchParams: { error: string }
 }
 
-const AuthErrorPage = ({ _, searchParams }: AuthErrorPageProps) => {
-  if (searchParams.error === 'CallbackRouteError') redirect('/become-beta-user')
+const betaUserErrors = ['CallbackRouteError', 'AuthorizedCallbackError']
+
+const AuthErrorPage = ({ _, searchParams: { error } }: AuthErrorPageProps) => {
+  if (betaUserErrors.includes(error)) redirect('/become-beta-user')
 
   return <div className='grow'>an error happend while logging in!</div>
 }

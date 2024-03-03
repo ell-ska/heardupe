@@ -4,7 +4,6 @@ import SpotifyProvider from 'next-auth/providers/spotify'
 import { db } from '@/lib/db'
 import { authURL } from '@/lib/auth/configs'
 import { refreshAccessToken } from '@/lib/auth/refresh-access-token'
-import type { ExtendedUser } from '@/types'
 
 export const {
   handlers: { GET, POST },
@@ -29,7 +28,7 @@ export const {
   callbacks: {
     async signIn({ user }) {
       if (!user.email) {
-        console.error('AUTH_SIGN_IN_EMAIL_MISSING_ERROR')
+        console.error('missing email, aborting sign in')
         return false
       }
 
@@ -64,6 +63,12 @@ export const {
       return true
     },
     async jwt({ token, account }) {
+      console.log(
+        'session expires at:',
+        new Date(token.expires_at).getHours(),
+        ':',
+        new Date(token.expires_at).getMinutes(),
+      )
       if (account) {
         return {
           ...token,
@@ -84,7 +89,7 @@ export const {
       console.log('token expired')
       return await refreshAccessToken(token)
     },
-    async session({ session, token }: { session: any; token: any }) {
+    async session({ session, token }) {
       const user = {
         ...session.user,
         access_token: token.access_token,
@@ -92,7 +97,7 @@ export const {
         expires_at: token.expires_at,
         expires_in: token.expires_in,
         refresh_token: token.refresh_token,
-      } satisfies ExtendedUser
+      }
 
       session.user = user
       session.error = token.error
@@ -100,3 +105,27 @@ export const {
     },
   },
 })
+
+declare module '@auth/core/types' {
+  interface Session {
+    error?: 'RefreshAccessTokenError'
+  }
+  interface User {
+    access_token: string
+    token_type: string
+    expires_at: number
+    expires_in: number
+    refresh_token: string
+  }
+}
+
+declare module '@auth/core/jwt' {
+  interface JWT {
+    access_token: string
+    token_type: string
+    expires_at: number
+    expires_in: number
+    refresh_token: string
+    error?: 'RefreshAccessTokenError'
+  }
+}

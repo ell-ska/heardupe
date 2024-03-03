@@ -41,7 +41,7 @@ const refreshAccessToken = async (token: JWT) => {
     console.error('[AUTH_REFRESH_ACCESS_TOKEN_ERROR]', error)
     return {
       ...token,
-      error: 'RefreshAccessTokenError',
+      error: 'RefreshAccessTokenError' as const,
     }
   }
 }

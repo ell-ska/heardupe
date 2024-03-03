@@ -1,6 +1,6 @@
 import { SessionProvider } from 'next-auth/react'
 
-import { auth } from '@/auth'
+import { auth, signIn } from '@/auth'
 
 type AuthSessionProviderProps = {
   children: React.ReactNode
@@ -8,6 +8,8 @@ type AuthSessionProviderProps = {
 
 const AuthSessionProvider = async ({ children }: AuthSessionProviderProps) => {
   const session = await auth()
+  if (session?.error === 'RefreshAccessTokenError') signIn('spotify')
+
   return <SessionProvider session={session}>{children}</SessionProvider>
 }
 

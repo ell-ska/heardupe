@@ -2,8 +2,12 @@ import { create } from 'zustand'
 import axios from 'axios'
 import type { Track } from '@spotify/web-api-ts-sdk'
 
+type Guess<Name extends string, Artists extends string> =
+  | `${Name} - ${Artists}`
+  | 'Skipped'
+
 type State = {
-  guesses: { value: string; skipped?: boolean; id?: string }[]
+  guesses: { value: Guess<string, string>; skipped?: boolean }[]
   stage: number
   level: number
   isLevelOver: boolean
@@ -19,19 +23,15 @@ type State = {
 }
 
 type Actions = {
-  setInitialInfo: ({
-    amountOfLevels,
-    id,
-    type,
-  }: {
+  setInitialInfo: (info: {
     amountOfLevels: number
-    id: string
     type: string
+    id: string
   }) => void
   setCurrentTrack: (track: Track) => void
   setIsPlaying: (state: boolean) => void
   next: (type?: 'stage' | 'level' | 'reveal-answer') => void
-  submitGuess: (guess: { value: string; id: string }) => void
+  submitGuess: (guess: Guess<string, string>) => void
   skipGuess: () => void
   reset: () => void
 }
@@ -55,8 +55,8 @@ const initialGameState: State = {
 const useGame = create<State & Actions>((set, get) => ({
   ...initialGameState,
 
-  setInitialInfo: ({ amountOfLevels, id, type }) =>
-    set({ amountOfLevels, id, type }),
+  setInitialInfo: ({ amountOfLevels, type, id }) =>
+    set({ amountOfLevels, type, id }),
   setCurrentTrack: track => set({ currentTrack: track }),
   setIsPlaying: state => set({ isPlaying: state }),
 
@@ -95,18 +95,23 @@ const useGame = create<State & Actions>((set, get) => ({
 
   submitGuess: guess =>
     set(() => {
-      if (guess.id === get().currentTrack?.id) {
+      const track = get().currentTrack
+      const correctGuess = `${track?.name} - ${track?.artists
+        .map(artist => artist.name)
+        .join(', ')}`
+
+      if (guess === correctGuess) {
         return {
           isLevelOver: true,
           isLevelWon: true,
           totalScore: get().totalScore + get().levelScore,
         }
-      } else if (get().guesses.find(prevGuess => prevGuess.id === guess.id)) {
+      } else if (get().guesses.find(prevGuess => prevGuess.value === guess)) {
         console.log('duplicate guess')
         return {}
       } else {
         get().next()
-        return { guesses: [...get().guesses, guess] }
+        return { guesses: [...get().guesses, { value: guess }] }
       }
     }),
   skipGuess: () =>

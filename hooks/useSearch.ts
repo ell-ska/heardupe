@@ -14,7 +14,7 @@ const useSearch = (type: ItemTypes[], limit?: number) => {
     () => {
       if (!debouncedSearch) return null
       // @ts-ignore, asks for limit to be of type 0 | 1 | 2 etc.
-      return sdk.search(debouncedSearch, type, undefined, limit || undefined)
+      return sdk.search(debouncedSearch, type, undefined, limit)
     },
   )
 

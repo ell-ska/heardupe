@@ -32,7 +32,7 @@
     "swr": "2.2.5",
     "tailwind-merge": "1.14.0",
     "zod": "3.22.4",
-    "zustand": "4.4.3"
+    "zustand": "4.5.2"
   },
   "devDependencies": {
     "@types/node": "20.11.25",

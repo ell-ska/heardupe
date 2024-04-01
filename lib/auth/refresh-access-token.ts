@@ -1,5 +1,7 @@
 import { JWT } from 'next-auth/jwt'
 
+import { signOut } from '@/auth'
+
 const refreshAccessToken = async (token: JWT) => {
   try {
     const params = new URLSearchParams()
@@ -39,9 +41,13 @@ const refreshAccessToken = async (token: JWT) => {
     }
   } catch (error) {
     console.error('[AUTH_REFRESH_ACCESS_TOKEN_ERROR]', error)
+    // this will trow an error because the token isn't returned
+    // but it's the only thing that i've found that works because
+    // this error causes an infinite loop and this breaks out of it
+    await signOut()
     return {
       ...token,
-      error: 'RefreshAccessTokenError',
+      error: 'RefreshAccessTokenError' as const,
     }
   }
 }

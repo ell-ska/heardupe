@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Profile {
@@ -39,7 +39,7 @@ model Game {
 }
 
 model BetaUserRequest {
-  id          String  @default(cuid())
+  id          String  @id @default(cuid())
   email       String  @unique
   name        String
   inDashboard Boolean @default(false)

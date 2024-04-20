@@ -30,7 +30,7 @@
     "react-hook-form": "7.51.3",
     "spotify-web-api-node": "5.0.2",
     "swr": "2.2.5",
-    "tailwind-merge": "2.2.2",
+    "tailwind-merge": "2.3.0",
     "zod": "3.22.5",
     "zustand": "4.5.2"
   },

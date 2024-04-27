@@ -16,7 +16,7 @@
     "@types/spotify-web-api-node": "5.0.11",
     "axios": "1.6.8",
     "class-variance-authority": "0.7.0",
-    "clsx": "2.1.0",
+    "clsx": "2.1.1",
     "cmdk": "1.0.0",
     "framer-motion": "11.1.7",
     "next": "14.2.2",

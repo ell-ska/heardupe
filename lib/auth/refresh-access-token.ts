@@ -1,6 +1,6 @@
 import { JWT } from 'next-auth/jwt'
 
-const refreshAccessToken = async (token: JWT) => {
+export const refreshAccessToken = async (token: JWT) => {
   try {
     const params = new URLSearchParams()
     params.append('grant_type', 'refresh_token')
@@ -45,5 +45,3 @@ const refreshAccessToken = async (token: JWT) => {
     }
   }
 }
-
-export { refreshAccessToken }

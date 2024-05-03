@@ -3,8 +3,6 @@ import SpotifyProvider from 'next-auth/providers/spotify'
 
 import { db } from '@/lib/db'
 import { authURL } from '@/lib/auth/configs'
-import { refreshAccessToken } from '@/lib/auth/refresh-access-token'
-import type { ExtendedUser } from '@/types'
 
 export const {
   handlers: { GET, POST },
@@ -77,12 +75,7 @@ export const {
         }
       }
 
-      if (Date.now() < (token.expires_at as number)) {
-        return token
-      }
-
-      console.log('token expired')
-      return await refreshAccessToken(token)
+      return token
     },
     async session({ session, token }: { session: any; token: any }) {
       const user = {
@@ -92,7 +85,7 @@ export const {
         expires_at: token.expires_at,
         expires_in: token.expires_in,
         refresh_token: token.refresh_token,
-      } satisfies ExtendedUser
+      }
 
       session.user = user
       session.error = token.error

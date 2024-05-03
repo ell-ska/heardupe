@@ -1,10 +1,9 @@
 import { auth } from '@/auth'
-import { ExtendedUser } from '@/types'
 import { db } from '@/lib/db'
 
-const currentProfile = async () => {
+export const currentProfile = async () => {
   const session = await auth()
-  const user = session?.user as ExtendedUser
+  const user = session?.user
 
   if (!user || !user.email) return null
 
@@ -16,5 +15,3 @@ const currentProfile = async () => {
 
   return profile
 }
-
-export { currentProfile }

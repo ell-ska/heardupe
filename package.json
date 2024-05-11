@@ -20,7 +20,7 @@
     "cmdk": "1.0.0",
     "framer-motion": "11.1.9",
     "next": "14.2.3",
-    "next-auth": "5.0.0-beta.17",
+    "next-auth": "5.0.0-beta.18",
     "next-safe-action": "6.2.0",
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "0.5.14",

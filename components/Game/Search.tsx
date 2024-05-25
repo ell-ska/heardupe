@@ -5,9 +5,11 @@ import type { Track } from '@spotify/web-api-ts-sdk'
 
 import { useSearch } from '@/hooks/useSearch'
 import { useGame } from '@/hooks/useGame'
+import { cn } from '@/utils/classnames'
 
 export const Search = () => {
   const { search, setSearch, searchResults } = useSearch(['track'], 5)
+  const searchItems = searchResults?.tracks?.items
 
   return (
     <div className='relative'>
@@ -18,22 +20,27 @@ export const Search = () => {
           className='w-full rounded-full px-8 py-4 text-neutral-900 outline-none'
           placeholder='Guess the song title'
         />
-        {searchResults && (
-          <Command.List className='absolute top-full mt-4 flex w-full flex-col rounded-2xl bg-neutral-800 py-4'>
-            {searchResults?.tracks?.items.map(result => (
+        <Command.List
+          className={cn(
+            'absolute top-full mt-4 flex w-full flex-col rounded-2xl bg-neutral-800 py-4',
+            !searchItems && 'hidden',
+          )}
+          aria-hidden={!searchItems}
+        >
+          {searchItems && searchItems.length > 0 ? (
+            searchItems.map(item => (
               <SearchItem
-                key={result.id}
-                {...result}
+                key={item.id}
+                {...item}
                 resetSearch={() => setSearch(null)}
               />
-            ))}
-            {searchResults?.tracks?.items.length === 0 && (
-              <Command.Empty className='text-center'>
-                No songs found with that name
-              </Command.Empty>
-            )}
-          </Command.List>
-        )}
+            ))
+          ) : (
+            <Command.Empty className='text-center'>
+              No songs found with that name
+            </Command.Empty>
+          )}
+        </Command.List>
       </Command>
     </div>
   )
@@ -55,7 +62,7 @@ const SearchItem = ({ id, name, artists, resetSearch }: SearchItemProps) => {
         submitGuess({ value: `${name} - ${stringifiedArtists}`, id })
         resetSearch()
       }}
-      className='px-8 py-3 text-left text-neutral-400 outline-none data-[selected]:bg-neutral-500 data-[selected]:text-white'
+      className='px-8 py-3 text-left text-neutral-400 outline-none data-[selected=true]:bg-neutral-500 data-[selected=true]:text-white'
     >
       {`${name} - ${stringifiedArtists}`}
     </Command.Item>

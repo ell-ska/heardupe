@@ -3,9 +3,9 @@
 import { signIn, signOut } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 
-import Button from '@/components/ui/Button'
+import { Button } from '@/components/ui/Button'
 
-const LoginButton = () => {
+export const LoginButton = () => {
   const callbackUrl = useSearchParams().get('callbackUrl') || undefined
 
   return (
@@ -15,12 +15,10 @@ const LoginButton = () => {
   )
 }
 
-const LogoutButton = () => {
+export const LogoutButton = () => {
   return (
     <Button size='sm' onClick={() => signOut()}>
       Log out
     </Button>
   )
 }
-
-export { LoginButton, LogoutButton }

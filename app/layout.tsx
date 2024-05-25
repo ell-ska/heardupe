@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { Lexend, Climate_Crisis } from 'next/font/google'
 
 import { cn } from '@/utils/classnames'
-import AuthSessionProvider from '@/providers/AuthSessionProvider'
-import Header from '@/components/Header/Header'
-import Footer from '@/components/Footer'
+import { AuthSessionProvider } from '@/providers/AuthSessionProvider'
+import { Header } from '@/components/Header/Header'
+import { Footer } from '@/components/Footer'
 import './globals.css'
 
 const lexend = Lexend({
@@ -26,7 +26,11 @@ export const metadata: Metadata = {
   },
 }
 
-const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang='en'>
       <body
@@ -45,5 +49,3 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     </html>
   )
 }
-
-export default RootLayout

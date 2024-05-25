@@ -26,7 +26,7 @@ interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {}
 
-const Button = ({
+export const Button = ({
   children,
   variant,
   size,
@@ -42,5 +42,3 @@ const Button = ({
     </button>
   )
 }
-
-export default Button

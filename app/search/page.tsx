@@ -1,10 +1,10 @@
 'use client'
 
 import { Loader } from '@/components/Icons'
-import PlaylistSection from '@/components/Playlist/PlaylistSection'
+import { PlaylistSection } from '@/components/Playlist/PlaylistSection'
 import { useSearch } from '@/hooks/useSearch'
 
-const Search = () => {
+export default function SearchPage() {
   const { search, setSearch, searchResults, isLoading } = useSearch([
     'artist',
     'playlist',
@@ -44,5 +44,3 @@ const Search = () => {
     </main>
   )
 }
-
-export default Search

@@ -1,4 +1,4 @@
-const BecomeBetaUserSubmittedPage = () => {
+export default function BecomeBetaUserSubmittedPage() {
   return (
     <div className='flex max-w-xs flex-col items-center gap-3 text-center'>
       <h2 className='text-3xl font-bold md:text-4xl'>Awesome!</h2>
@@ -8,5 +8,3 @@ const BecomeBetaUserSubmittedPage = () => {
     </div>
   )
 }
-
-export default BecomeBetaUserSubmittedPage

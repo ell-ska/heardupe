@@ -1,5 +1,3 @@
-const Footer = () => {
-  return <footer className='bg-primary min-h-[1.5rem] w-full'></footer>
+export const Footer = () => {
+  return <footer className='min-h-[1.5rem] w-full bg-primary'></footer>
 }
-
-export default Footer

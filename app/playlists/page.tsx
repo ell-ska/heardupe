@@ -1,13 +1,13 @@
 'use client'
 
 import useSwr from 'swr'
+
 import sdk from '@/lib/spotify/spotify-client'
+import { PlaylistSection } from '@/components/Playlist/PlaylistSection'
 
-import PlaylistSection from '@/components/Playlist/PlaylistSection'
+const playlistsToShow = 12
 
-const Playlists = () => {
-  const playlistsToShow = 12
-
+export default function PlaylistsPage() {
   const { data: topArtists } = useSwr('/api/artists/top', () =>
     sdk.currentUser.topItems('artists', undefined, playlistsToShow),
   )
@@ -31,5 +31,3 @@ const Playlists = () => {
     </main>
   )
 }
-
-export default Playlists

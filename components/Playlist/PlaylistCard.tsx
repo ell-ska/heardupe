@@ -28,7 +28,7 @@ type PlaylistCardProps = (
   className?: string
 }
 
-const PlaylistCard = ({
+export const PlaylistCard = ({
   id,
   type,
   description,
@@ -89,5 +89,3 @@ const PlaylistCard = ({
     </div>
   )
 }
-
-export default PlaylistCard

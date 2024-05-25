@@ -7,10 +7,11 @@ type AuthErrorPageProps = {
 
 const betaUserErrors = ['CallbackRouteError', 'AuthorizedCallbackError']
 
-const AuthErrorPage = ({ _, searchParams: { error } }: AuthErrorPageProps) => {
+export default function AuthErrorPage({
+  _,
+  searchParams: { error },
+}: AuthErrorPageProps) {
   if (betaUserErrors.includes(error)) redirect('/become-beta-user')
 
   return <div className='grow'>an error happend while logging in!</div>
 }
-
-export default AuthErrorPage

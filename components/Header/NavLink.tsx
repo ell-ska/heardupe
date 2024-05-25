@@ -9,7 +9,7 @@ type NavLinkProps = {
   path: string
 }
 
-const NavLink = ({ name, path }: NavLinkProps) => {
+export const NavLink = ({ name, path }: NavLinkProps) => {
   const currentPath = usePathname()
   const isActive = currentPath === path
 
@@ -25,5 +25,3 @@ const NavLink = ({ name, path }: NavLinkProps) => {
     </Link>
   )
 }
-
-export default NavLink

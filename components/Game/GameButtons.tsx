@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { useGame } from '@/hooks/useGame'
-import Button, { buttonVariants } from '@/components/ui/Button'
+import { Button, buttonVariants } from '@/components/ui/Button'
 
 const ListenOnSpotify = () => {
   const { currentTrack } = useGame()
@@ -53,8 +53,8 @@ const Next = () => {
     isLevelOver && isLastLevel
       ? 'Final score'
       : isLevelOver
-      ? 'Next song'
-      : 'Reveal answer'
+        ? 'Next song'
+        : 'Reveal answer'
 
   return (
     <Button
@@ -76,7 +76,7 @@ const PlayAgain = () => {
   )
 }
 
-const GameButtons = () => {
+export const GameButtons = () => {
   const { isLevelOver, isGameOver } = useGame(state => ({
     isLevelOver: state.isLevelOver,
     isGameOver: state.isGameOver,
@@ -95,5 +95,3 @@ const GameButtons = () => {
     </div>
   )
 }
-
-export default GameButtons

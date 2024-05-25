@@ -3,9 +3,12 @@ import type { Market, PlaylistedTrack, Track } from '@spotify/web-api-ts-sdk'
 import sdk from '@/lib/spotify/spotify-client'
 import type { gameData, gameTracks } from '@/types'
 
-const fetcher = (url: string) => fetch(url).then(r => r.json())
+export const fetcher = (url: string) => fetch(url).then(r => r.json())
 
-const getGameData = async (type: string, id: string): Promise<gameData> => {
+export const getGameData = async (
+  type: string,
+  id: string,
+): Promise<gameData> => {
   const shuffle = <T>(array: T[]): T[] => {
     return array.sort(() => 0.5 - Math.random())
   }
@@ -41,5 +44,3 @@ const getGameData = async (type: string, id: string): Promise<gameData> => {
     throw 'That type is not avaliable'
   }
 }
-
-export { fetcher, getGameData }

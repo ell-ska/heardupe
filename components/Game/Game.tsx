@@ -4,12 +4,12 @@ import { useEffect } from 'react'
 import type { Track } from '@spotify/web-api-ts-sdk'
 
 import { useGame } from '@/hooks/useGame'
-import Search from '@/components/Game/Search'
-import Guesses from '@/components/Game/Guesses'
-import MusicPlayer from '@/components/Game/MusicPlayer'
-import GameButtons from '@/components/Game/GameButtons'
-import EndScreen from '@/components/Game/EndScreen'
-import Stats from '@/components/Game/Stats'
+import { Search } from '@/components/Game/Search'
+import { Guesses } from '@/components/Game/Guesses'
+import { MusicPlayer } from '@/components/Game/MusicPlayer'
+import { GameButtons } from '@/components/Game/GameButtons'
+import { LevelFinished, GameFinished } from '@/components/Game/FinishScreens'
+import { Stats } from '@/components/Game/Stats'
 import type { gamePlaylist, gameTracks } from '@/types'
 
 type GameProps = {
@@ -19,7 +19,7 @@ type GameProps = {
   id: string
 }
 
-const Game = ({ playlist, tracks, type, id }: GameProps) => {
+export const Game = ({ playlist, tracks, type, id }: GameProps) => {
   const {
     level,
     isLevelOver,
@@ -54,8 +54,10 @@ const Game = ({ playlist, tracks, type, id }: GameProps) => {
   return (
     <>
       <div className='main mt-4 flex min-h-[calc(100svh-7.5rem)] grow flex-col self-center lg:min-h-0'>
-        {isGameOver || isLevelOver ? (
-          <EndScreen playlist={playlist} />
+        {isGameOver ? (
+          <GameFinished playlist={playlist} />
+        ) : isLevelOver ? (
+          <LevelFinished />
         ) : (
           <>
             <Stats />
@@ -69,5 +71,3 @@ const Game = ({ playlist, tracks, type, id }: GameProps) => {
     </>
   )
 }
-
-export default Game

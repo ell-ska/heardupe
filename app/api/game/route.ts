@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import { db } from '@/lib/db'
 import { currentProfile } from '@/lib/current-profile'
 
-const POST = async (req: Request) => {
+export const POST = async (req: Request) => {
   try {
     const profile = await currentProfile()
     const { score, id, type } = await req.json()
@@ -43,5 +43,3 @@ const POST = async (req: Request) => {
     return new NextResponse('Internal error', { status: 500 })
   }
 }
-
-export { POST }

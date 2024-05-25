@@ -52,7 +52,7 @@ const initialGameState: State = {
   totalScore: 0,
 }
 
-const useGame = create<State & Actions>((set, get) => ({
+export const useGame = create<State & Actions>((set, get) => ({
   ...initialGameState,
 
   setInitialInfo: ({ amountOfLevels, id, type }) =>
@@ -119,5 +119,3 @@ const useGame = create<State & Actions>((set, get) => ({
 
   reset: () => set(initialGameState),
 }))
-
-export { useGame }

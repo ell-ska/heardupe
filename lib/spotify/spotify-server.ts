@@ -1,9 +1,10 @@
 import { AccessToken, SpotifyApi } from '@spotify/web-api-ts-sdk'
 
 import { auth, signIn } from '@/auth'
+
 const clientID = process.env.SPOTIFY_CLIENT_ID || ''
 
-const getServerSdk = async () => {
+export const getServerSdk = async () => {
   const session = await auth()
   const user = session?.user
 
@@ -18,5 +19,3 @@ const getServerSdk = async () => {
 
   return SpotifyApi.withAccessToken(clientID, accessToken)
 }
-
-export { getServerSdk }

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { buttonVariants } from '@/components/ui/Button'
 import notFoundImage from '@/public/404.svg'
 
-const NotFound = () => {
+export default function NotFoundPage() {
   return (
     <main className='main flex grow flex-col items-center justify-center'>
       <Image src={notFoundImage} alt='' className='mb-6' />
@@ -18,5 +18,3 @@ const NotFound = () => {
     </main>
   )
 }
-
-export default NotFound

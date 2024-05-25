@@ -8,7 +8,7 @@ import { Play, Pause } from '@/components/Icons'
 export const seconds = [1, 2, 4, 7, 11, 16]
 const stagePercentages = [6.25, 12.5, 25, 43.75, 68.75, 100]
 
-const MusicPlayer = () => {
+export const MusicPlayer = () => {
   const { stage, isLevelOver, currentTrack, isPlaying, setIsPlaying } = useGame(
     state => ({
       stage: state.stage,
@@ -115,5 +115,3 @@ const MusicPlayer = () => {
     </div>
   )
 }
-
-export default MusicPlayer

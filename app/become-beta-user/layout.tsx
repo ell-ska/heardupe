@@ -1,6 +1,10 @@
-import HeardupeXSpotify from '@/components/HeardupeXSpotify'
+import { HeardupeXSpotify } from '@/components/HeardupeXSpotify'
 
-const BecomeBetaUserLayout = ({ children }: { children: React.ReactNode }) => {
+export default function BecomeBetaUserLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <main className='main relative flex grow flex-col items-center justify-center space-y-12'>
       {children}
@@ -8,5 +12,3 @@ const BecomeBetaUserLayout = ({ children }: { children: React.ReactNode }) => {
     </main>
   )
 }
-
-export default BecomeBetaUserLayout

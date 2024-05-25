@@ -18,7 +18,7 @@
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.1",
     "cmdk": "1.0.0",
-    "framer-motion": "11.2.4",
+    "framer-motion": "11.2.6",
     "next": "14.2.3",
     "next-auth": "5.0.0-beta.18",
     "next-safe-action": "6.2.0",

@@ -7,10 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { becomeBetaUser } from '@/actions/become-beta-user'
 import { becomeBetaUserSchema as schema } from '@/actions/utils/schemas'
-import Button from '@/components/ui/Button'
-import FormField from '@/components/ui/FormField'
+import { Button } from '@/components/ui/Button'
+import { FormField } from '@/components/ui/FormField'
 
-const WaitlistForm = () => {
+export const WaitlistForm = () => {
   const {
     execute,
     status,
@@ -49,10 +49,8 @@ const WaitlistForm = () => {
       )}
       {/* TODO 54: toast error */}
       {serverError && (
-        <span className='text-error text-center text-sm'>{serverError}</span>
+        <span className='text-center text-sm text-error'>{serverError}</span>
       )}
     </form>
   )
 }
-
-export default WaitlistForm

@@ -1,6 +1,6 @@
 import { currentProfile } from '@/lib/current-profile'
-import PlaylistCard from '@/components/Playlist/PlaylistCard'
-import PlaylistGallery from '@/components/Playlist/PlaylistGallery'
+import { PlaylistCard } from '@/components/Playlist/PlaylistCard'
+import { PlaylistGallery } from '@/components/Playlist/PlaylistGallery'
 import placeholderImage from '@/public/placeholder.jpeg'
 
 const staticPlaylist = {
@@ -17,7 +17,7 @@ const staticPlaylist = {
   ],
 }
 
-const Home = async () => {
+export default async function HomePage() {
   const profile = await currentProfile()
 
   return (
@@ -36,5 +36,3 @@ const Home = async () => {
     </main>
   )
 }
-
-export default Home

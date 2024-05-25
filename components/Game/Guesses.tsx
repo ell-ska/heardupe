@@ -1,7 +1,7 @@
 import { useGame } from '@/hooks/useGame'
 import { cn } from '@/utils/classnames'
 
-const Guesses = () => {
+export const Guesses = () => {
   const guesses = useGame(state => state.guesses)
 
   return (
@@ -19,5 +19,3 @@ const Guesses = () => {
     </ul>
   )
 }
-
-export default Guesses

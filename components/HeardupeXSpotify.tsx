@@ -8,7 +8,7 @@ type HeardupeXSpotifyProps = {
   className?: string
 }
 
-const HeardupeXSpotify = ({
+export const HeardupeXSpotify = ({
   size = 'base',
   className,
 }: HeardupeXSpotifyProps) => {
@@ -47,5 +47,3 @@ const HeardupeXSpotify = ({
     </div>
   )
 }
-
-export default HeardupeXSpotify

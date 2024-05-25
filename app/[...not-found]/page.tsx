@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
 
-const NotFoundCatchAll = () => notFound()
-
-export default NotFoundCatchAll
+export default function NotFoundCatchAll() {
+  return notFound()
+}

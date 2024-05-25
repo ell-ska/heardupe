@@ -1,7 +1,7 @@
 import type { Artist, SimplifiedPlaylist } from '@spotify/web-api-ts-sdk'
 
 import { cn } from '@/utils/classnames'
-import PlaylistCard from './PlaylistCard'
+import { PlaylistCard } from './PlaylistCard'
 
 type PlaylistSectionProps = {
   title: string
@@ -9,7 +9,7 @@ type PlaylistSectionProps = {
   className?: string
 }
 
-const PlaylistSection = ({
+export const PlaylistSection = ({
   title,
   playlists,
   className,
@@ -25,5 +25,3 @@ const PlaylistSection = ({
     </div>
   )
 }
-
-export default PlaylistSection

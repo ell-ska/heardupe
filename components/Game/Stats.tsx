@@ -1,6 +1,6 @@
 import { useGame } from '@/hooks/useGame'
 
-const Stats = () => {
+export const Stats = () => {
   const { level, amountOfLevels, levelScore, totalScore } = useGame(state => ({
     level: state.level,
     amountOfLevels: state.amountOfLevels,
@@ -15,5 +15,3 @@ const Stats = () => {
     </div>
   )
 }
-
-export default Stats

@@ -6,7 +6,7 @@ export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   isError?: boolean
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ isError, className, ...props }, ref) => {
     return (
       <input
@@ -22,5 +22,3 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   },
 )
 Input.displayName = 'Input'
-
-export default Input

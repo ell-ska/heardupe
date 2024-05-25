@@ -6,11 +6,11 @@ import useSWR from 'swr'
 import sdk from '@/lib/spotify/spotify-client'
 import { fetcher } from '@/lib/spotify/fetchers'
 import { LogoutButton } from '@/components/AuthButtons'
-import Button from '@/components/ui/Button'
-import StatisticCard from '@/components/StatisticCard'
+import { Button } from '@/components/ui/Button'
+import { StatisticCard } from '@/components/StatisticCard'
 import type { statistic } from '@/types'
 
-const Profile = () => {
+export default function ProfilePage() {
   const { data: statistics }: { data: statistic[] | undefined } = useSWR(
     '/api/statistics',
     fetcher,
@@ -54,5 +54,3 @@ const Profile = () => {
     </main>
   )
 }
-
-export default Profile

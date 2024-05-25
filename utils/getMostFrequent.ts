@@ -1,4 +1,4 @@
-const getMostFrequent = (array: string[]) => {
+export const getMostFrequent = (array: string[]) => {
   return array
     .sort(
       (a, b) =>
@@ -6,5 +6,3 @@ const getMostFrequent = (array: string[]) => {
     )
     .pop()
 }
-
-export { getMostFrequent }

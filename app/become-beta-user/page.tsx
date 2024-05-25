@@ -1,6 +1,6 @@
-import WaitlistForm from '@/components/WaitlistForm'
+import { WaitlistForm } from '@/components/WaitlistForm'
 
-const BecomeBetaUserPage = () => {
+export default function BecomeBetaUserPage() {
   return (
     <>
       <div className='max-w-sm space-y-3 text-center'>
@@ -14,5 +14,3 @@ const BecomeBetaUserPage = () => {
     </>
   )
 }
-
-export default BecomeBetaUserPage

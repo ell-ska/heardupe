@@ -4,12 +4,12 @@ import { useState } from 'react'
 import useSWR from 'swr'
 import sdk from '@/lib/spotify/spotify-client'
 
-import PlaylistCard from './PlaylistCard'
-import Button from '../ui/Button'
+import { PlaylistCard } from './PlaylistCard'
+import { Button } from '../ui/Button'
 
 const largeCardIndexes = [6, 13, 24, 31, 42, 49]
 
-const PlaylistGallery = () => {
+export const PlaylistGallery = () => {
   const [playlistsToShow, setPlaylistsToShow] = useState(13)
   const maxPlaylistsToShow = 49
 
@@ -41,5 +41,3 @@ const PlaylistGallery = () => {
     </div>
   )
 }
-
-export default PlaylistGallery

@@ -7,7 +7,7 @@ import { currentProfile } from '@/lib/current-profile'
 import { getMostFrequent } from '@/utils/getMostFrequent'
 import type { statistic } from '@/types'
 
-const GET = async () => {
+export const GET = async () => {
   try {
     const profile = await currentProfile()
     const sdk = await getServerSdk()
@@ -59,5 +59,3 @@ const GET = async () => {
     return new NextResponse('Internal error', { status: 500 })
   }
 }
-
-export { GET }

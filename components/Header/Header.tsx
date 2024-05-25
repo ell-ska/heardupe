@@ -1,4 +1,4 @@
-import NavLink from './NavLink'
+import { NavLink } from './NavLink'
 
 const menuItems = [
   {
@@ -19,7 +19,7 @@ const menuItems = [
   },
 ]
 
-const Header = () => {
+export const Header = () => {
   return (
     <header className='main px-6 py-8'>
       <nav className='flex w-full justify-between gap-6 px-4 sm:justify-start sm:gap-12'>
@@ -30,5 +30,3 @@ const Header = () => {
     </header>
   )
 }
-
-export default Header

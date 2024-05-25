@@ -3,16 +3,16 @@
 import useSWR from 'swr'
 
 import { getGameData } from '@/lib/spotify/fetchers'
-import Game from '@/components/Game/Game'
+import { Game } from '@/components/Game/Game'
 
-type PageProps = {
+type GamePageProps = {
   params: {
     type: string
     id: string
   }
 }
 
-const Page = ({ params: { type, id } }: PageProps) => {
+export default function GamePage({ params: { type, id } }: GamePageProps) {
   const { data, error } = useSWR(`api/${type}/${id}`, () =>
     getGameData(type, id),
   )
@@ -34,5 +34,3 @@ const Page = ({ params: { type, id } }: PageProps) => {
     </main>
   )
 }
-
-export default Page

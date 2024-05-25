@@ -1,4 +1,4 @@
-const Loader = ({ className }: { className?: string }) => {
+export const Loader = ({ className }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -17,7 +17,7 @@ const Loader = ({ className }: { className?: string }) => {
   )
 }
 
-const Pause = ({ className }: { className?: string }) => {
+export const Pause = ({ className }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -40,7 +40,7 @@ const Pause = ({ className }: { className?: string }) => {
   )
 }
 
-const Play = ({ className }: { className?: string }) => {
+export const Play = ({ className }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -62,7 +62,7 @@ const Play = ({ className }: { className?: string }) => {
   )
 }
 
-const PlayBg = ({ className }: { className?: string }) => {
+export const PlayBg = ({ className }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -83,5 +83,3 @@ const PlayBg = ({ className }: { className?: string }) => {
     </svg>
   )
 }
-
-export { Loader, Pause, Play, PlayBg }

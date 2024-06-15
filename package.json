@@ -19,7 +19,7 @@
     "clsx": "2.1.1",
     "cmdk": "1.0.0",
     "framer-motion": "11.2.10",
-    "next": "14.2.3",
+    "next": "14.2.4",
     "next-auth": "5.0.0-beta.19",
     "next-safe-action": "6.2.0",
     "prettier": "3.3.2",
@@ -40,7 +40,7 @@
     "@types/react-dom": "18.3.0",
     "autoprefixer": "10.4.19",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.2.3",
+    "eslint-config-next": "14.2.4",
     "postcss": "8.4.38",
     "tailwindcss": "3.4.4",
     "typescript": "5.4.5"

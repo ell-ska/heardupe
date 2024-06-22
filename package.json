@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "3.6.0",
-    "@prisma/client": "5.15.0",
+    "@prisma/client": "5.15.1",
     "@spotify/web-api-ts-sdk": "1.2.0",
     "@types/spotify-web-api-node": "5.0.11",
     "axios": "1.7.2",
@@ -24,7 +24,7 @@
     "next-safe-action": "6.2.0",
     "prettier": "3.3.2",
     "prettier-plugin-tailwindcss": "0.6.5",
-    "prisma": "5.15.0",
+    "prisma": "5.15.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hook-form": "7.52.0",

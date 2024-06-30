@@ -1,33 +1,23 @@
-'use client'
-
-import useSwr from 'swr'
-
-import sdk from '@/lib/spotify/spotify-client'
+import { getServerSdk } from '@/lib/spotify/spotify-server'
 import { PlaylistSection } from '@/components/Playlist/PlaylistSection'
 
 const playlistsToShow = 12
 
-export default function PlaylistsPage() {
-  const { data: topArtists } = useSwr('/api/artists/top', () =>
-    sdk.currentUser.topItems('artists', undefined, playlistsToShow),
-  )
+export default async function PlaylistsPage() {
+  const sdk = await getServerSdk()
 
-  const { data: userPlaylists } = useSwr('/api/playlists/user', () =>
-    sdk.currentUser.playlists.playlists(playlistsToShow),
+  const topArtists = await sdk.currentUser.topItems(
+    'artists',
+    undefined,
+    playlistsToShow,
   )
+  const userPlaylists =
+    await sdk.currentUser.playlists.playlists(playlistsToShow)
 
   return (
-    <main className='main mb-16 mt-8 grow'>
-      {topArtists && (
-        <PlaylistSection
-          title='Top Artists'
-          playlists={topArtists.items}
-          className='mt-0'
-        />
-      )}
-      {userPlaylists && (
-        <PlaylistSection title='My Playlists' playlists={userPlaylists.items} />
-      )}
+    <main className='main mb-12 mt-8 grow space-y-16'>
+      <PlaylistSection title='Top Artists' playlists={topArtists.items} />
+      <PlaylistSection title='My Playlists' playlists={userPlaylists.items} />
     </main>
   )
 }

@@ -25,10 +25,9 @@ export default function SearchPage() {
         </div>
       )}
       {searchResults && (
-        <div>
+        <div className='mt-10 space-y-12'>
           {searchResults.artists && (
             <PlaylistSection
-              className='mt-10'
               title='Artists'
               playlists={searchResults.artists.items}
             />

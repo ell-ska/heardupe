@@ -8,15 +8,15 @@ import { useGame } from '@/hooks/useGame'
 import { cn } from '@/utils/classnames'
 
 export const Search = () => {
-  const { search, setSearch, searchResults } = useSearch(['track'], 5)
+  const { search, query, searchResults } = useSearch(['track'], 5)
   const searchItems = searchResults?.tracks?.items
 
   return (
     <div className='relative'>
       <Command shouldFilter={false}>
         <Command.Input
-          value={search || ''}
-          onValueChange={setSearch}
+          value={query}
+          onValueChange={search}
           className='w-full rounded-full px-8 py-4 text-neutral-900 outline-none'
           placeholder='Guess the song title'
         />
@@ -32,7 +32,7 @@ export const Search = () => {
               <SearchItem
                 key={item.id}
                 {...item}
-                resetSearch={() => setSearch(null)}
+                resetSearch={() => search('')}
               />
             ))
           ) : (

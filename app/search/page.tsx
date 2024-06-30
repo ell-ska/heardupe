@@ -5,7 +5,7 @@ import { PlaylistSection } from '@/components/Playlist/PlaylistSection'
 import { useSearch } from '@/hooks/useSearch'
 
 export default function SearchPage() {
-  const { search, setSearch, searchResults, isLoading } = useSearch([
+  const { search, query, searchResults, isLoading } = useSearch([
     'artist',
     'playlist',
   ])
@@ -14,8 +14,8 @@ export default function SearchPage() {
     <main className='main mb-16 grow'>
       <input
         type='text'
-        value={search || ''}
-        onChange={e => setSearch(e.target.value)}
+        value={query}
+        onChange={e => search(e.target.value)}
         placeholder='search...'
         className='w-full rounded-full px-8 py-4 text-neutral-900 outline-none'
       />

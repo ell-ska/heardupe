@@ -10,7 +10,7 @@ export const StatisticCard = ({ metric, value }: StatisticCardProps) => {
       <h3 className='text-2xl font-bold uppercase leading-none lg:text-3xl'>
         {metric}
       </h3>
-      <p className='overflow-hidden text-ellipsis text-3xl leading-none text-primary lg:text-4xl'>
+      <p className='line-clamp-2 text-3xl leading-none text-primary lg:text-4xl'>
         {value}
       </p>
     </div>

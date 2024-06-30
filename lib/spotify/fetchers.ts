@@ -1,19 +1,19 @@
 import type { Market, PlaylistedTrack, Track } from '@spotify/web-api-ts-sdk'
 
 import sdk from '@/lib/spotify/spotify-client'
-import type { gameData, gameTracks } from '@/types'
+import type { GameData, GameTracks } from '@/types'
 
 export const fetcher = (url: string) => fetch(url).then(r => r.json())
 
 export const getGameData = async (
   type: string,
   id: string,
-): Promise<gameData> => {
+): Promise<GameData> => {
   const shuffle = <T>(array: T[]): T[] => {
     return array.sort(() => 0.5 - Math.random())
   }
 
-  const removeTracksWithoutPreviewUrl = (tracks: gameTracks) => {
+  const removeTracksWithoutPreviewUrl = (tracks: GameTracks) => {
     return tracks.filter(track => {
       if (type === 'artist') {
         return (track as Track).preview_url

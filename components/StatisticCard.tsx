@@ -1,8 +1,8 @@
 'use client'
 
-import type { statistic } from '@/types'
+import type { Statistic } from '@/types'
 
-type StatisticCardProps = statistic
+type StatisticCardProps = Statistic
 
 export const StatisticCard = ({ metric, value }: StatisticCardProps) => {
   return (

@@ -10,11 +10,11 @@ import { MusicPlayer } from '@/components/Game/MusicPlayer'
 import { GameButtons } from '@/components/Game/GameButtons'
 import { LevelFinished, GameFinished } from '@/components/Game/FinishScreens'
 import { Stats } from '@/components/Game/Stats'
-import type { gamePlaylist, gameTracks } from '@/types'
+import type { GamePlaylist, GameTracks } from '@/types'
 
 type GameProps = {
-  playlist: gamePlaylist
-  tracks: gameTracks
+  playlist: GamePlaylist
+  tracks: GameTracks
   type: string
   id: string
 }

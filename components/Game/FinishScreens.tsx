@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import { useGame } from '@/hooks/useGame'
 import { seconds } from '@/components/Game/MusicPlayer'
-import type { gamePlaylist } from '@/types'
+import type { GamePlaylist } from '@/types'
 
 export const LevelFinished = () => {
   const { currentTrack, isLevelWon, stage } = useGame(state => ({
@@ -45,7 +45,7 @@ export const LevelFinished = () => {
   )
 }
 
-export const GameFinished = ({ playlist }: { playlist: gamePlaylist }) => {
+export const GameFinished = ({ playlist }: { playlist: GamePlaylist }) => {
   const { totalScore } = useGame(state => ({
     totalScore: state.totalScore,
   }))

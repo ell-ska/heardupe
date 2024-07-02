@@ -3,6 +3,7 @@ import { Lexend, Climate_Crisis } from 'next/font/google'
 
 import { cn } from '@/utils/classnames'
 import { AuthSessionProvider } from '@/providers/AuthSessionProvider'
+import { QueryClientProvider } from '@/providers/QueryClientProvider'
 import { Header } from '@/components/Header/Header'
 import { Footer } from '@/components/Footer'
 import './globals.css'
@@ -41,9 +42,11 @@ export default function RootLayout({
         )}
       >
         <AuthSessionProvider>
-          <Header />
-          {children}
-          <Footer />
+          <QueryClientProvider>
+            <Header />
+            {children}
+            <Footer />
+          </QueryClientProvider>
         </AuthSessionProvider>
       </body>
     </html>

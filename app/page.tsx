@@ -1,4 +1,5 @@
-import { currentProfile } from '@/lib/current-profile'
+import { auth } from '@/auth'
+import { getServerSdk } from '@/lib/spotify/spotify-server'
 import { PlaylistCard } from '@/components/Playlist/PlaylistCard'
 import { PlaylistGallery } from '@/components/Playlist/PlaylistGallery'
 import placeholderImage from '@/public/placeholder.jpeg'
@@ -18,7 +19,7 @@ const staticPlaylist = {
 }
 
 export default async function HomePage() {
-  const profile = await currentProfile()
+  const session = await auth()
 
   return (
     <main className='main mt-8 grow'>
@@ -32,7 +33,14 @@ export default async function HomePage() {
           </h2>
         </div>
       </div>
-      {profile && <PlaylistGallery />}
+      {session && <HomePagePlaylistGallery />}
     </main>
   )
+}
+
+const HomePagePlaylistGallery = async () => {
+  const sdk = await getServerSdk()
+  const playlists = await sdk.currentUser.playlists.playlists(13)
+
+  return <PlaylistGallery initialPlaylists={playlists} />
 }

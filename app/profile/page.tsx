@@ -11,7 +11,7 @@ export default async function ProfilePage() {
 
   const statistics = await getUserStatistics()
   const profile = await sdk.currentUser.profile()
-  const profileImage = profile.images[1]
+  const profileImage = profile.images.length >= 2 ? profile.images[1] : null
 
   return (
     <main className='main mb-8 mt-8 grow md:mt-20'>
@@ -19,9 +19,9 @@ export default async function ProfilePage() {
         <div className='flex items-center gap-6 md:gap-12'>
           <Image
             className='h-20 w-20 rounded-full object-cover md:h-28 md:w-28'
-            src={profileImage.url || '/profile-placeholder.jpg'}
-            height={profileImage.height || 112}
-            width={profileImage.width || 112}
+            src={profileImage?.url || '/profile-placeholder.jpg'}
+            height={profileImage?.height || 112}
+            width={profileImage?.width || 112}
             alt={`${profile.display_name}'s profile picture`}
           />
           <h2 className='truncate text-2xl font-bold'>

@@ -26,17 +26,16 @@ export const {
   },
   callbacks: {
     async signIn({ user }) {
-      if (!user.email) {
-        console.error('AUTH_SIGN_IN_EMAIL_MISSING_ERROR')
-        return false
-      }
+      if (!user.email) throw Error('Email is missing in user')
 
-      const isBetaUser = await db.betaUserRequest.findUnique({
-        where: { email: user.email, inDashboard: true },
+      const betaUserRequest = await db.betaUserRequest.findUnique({
+        where: { email: user.email },
       })
-      if (!isBetaUser) {
-        console.log('not beta user, aborting sign in')
-        return false
+      if (!betaUserRequest) {
+        throw Error('No beta user request')
+      }
+      if (betaUserRequest && !betaUserRequest.inDashboard) {
+        throw Error('Beta user request has not been approved yet')
       }
 
       const existingProfile = await db.profile.findUnique({
@@ -45,20 +44,13 @@ export const {
         },
       })
       if (!existingProfile) {
-        try {
-          await db.profile.create({
-            data: {
-              email: user.email,
-            },
-          })
-          console.log('new profile created')
-        } catch (error) {
-          console.error('[AUTH_SIGN_IN_NEW_USER_ERROR]', error)
-          return false
-        }
+        await db.profile.create({
+          data: {
+            email: user.email,
+          },
+        })
       }
 
-      console.log('sign in complete')
       return true
     },
     async jwt({ token, account }) {

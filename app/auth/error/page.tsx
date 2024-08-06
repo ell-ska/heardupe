@@ -5,7 +5,11 @@ type AuthErrorPageProps = {
   searchParams: { error: string }
 }
 
-const betaUserErrors = ['CallbackRouteError', 'AuthorizedCallbackError']
+const betaUserErrors = [
+  'CallbackRouteError',
+  'AuthorizedCallbackError',
+  'AccessDenied',
+]
 
 export default function AuthErrorPage({
   _,

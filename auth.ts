@@ -1,4 +1,5 @@
-import NextAuth from 'next-auth'
+import { AccessDenied } from '@auth/core/errors'
+import NextAuth, { AuthError } from 'next-auth'
 import SpotifyProvider from 'next-auth/providers/spotify'
 
 import { db } from '@/lib/db'
@@ -26,29 +27,39 @@ export const {
   },
   callbacks: {
     async signIn({ user }) {
-      if (!user.email) throw Error('Email is missing in user')
+      try {
+        if (!user.email) throw new AccessDenied('Email is missing in user')
 
-      const betaUserRequest = await db.betaUserRequest.findUnique({
-        where: { email: user.email },
-      })
-      if (!betaUserRequest) {
-        throw Error('No beta user request')
-      }
-      if (betaUserRequest && !betaUserRequest.inDashboard) {
-        throw Error('Beta user request has not been approved yet')
-      }
+        const betaUserRequest = await db.betaUserRequest.findUnique({
+          where: { email: user.email },
+        })
+        if (!betaUserRequest) {
+          throw new AccessDenied('No beta user request')
+        }
+        if (betaUserRequest && !betaUserRequest.inDashboard) {
+          throw new AccessDenied('Beta user request has not been approved yet')
+        }
 
-      const existingProfile = await db.profile.findUnique({
-        where: {
-          email: user.email,
-        },
-      })
-      if (!existingProfile) {
-        await db.profile.create({
-          data: {
+        const existingProfile = await db.profile.findUnique({
+          where: {
             email: user.email,
           },
         })
+        if (!existingProfile) {
+          await db.profile.create({
+            data: {
+              email: user.email,
+            },
+          })
+        }
+      } catch (error) {
+        // hacky way of separating expected errors from database failure
+        // AccessDenied will show as "AccessDenied" while AuthError will show as "Configuration"
+        if (error instanceof AccessDenied) {
+          throw error
+        } else {
+          throw new AuthError('Something went wrong when signing in')
+        }
       }
 
       return true

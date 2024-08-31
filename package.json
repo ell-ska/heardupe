@@ -16,7 +16,7 @@
     "@spotify/web-api-ts-sdk": "1.2.0",
     "@tanstack/react-query": "5.52.1",
     "@types/spotify-web-api-node": "5.0.11",
-    "axios": "1.7.5",
+    "axios": "1.7.6",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.1",
     "cmdk": "1.0.0",

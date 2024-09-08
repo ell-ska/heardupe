@@ -25,7 +25,7 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
           htmlFor={name}
           className={cn(
             'absolute -top-2 left-2 cursor-text text-xs text-white transition-all',
-            ' peer-focus-visible:-top-2 peer-focus-visible:left-2 peer-focus-visible:text-xs',
+            'peer-focus-visible:-top-2 peer-focus-visible:left-2 peer-focus-visible:text-xs',
             'peer-placeholder-shown:left-4 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base',
             error && '-top-4 peer-focus-visible:-top-4',
           )}

@@ -115,3 +115,5 @@ export const MusicPlayer = () => {
     </div>
   )
 }
+
+export const MusicPlayerSkeleton = () => {}

@@ -6,6 +6,9 @@ import type { Track } from '@spotify/web-api-ts-sdk'
 import { useSearch } from '@/hooks/useSearch'
 import { useGame } from '@/hooks/useGame'
 import { cn } from '@/utils/classnames'
+import { Skeleton } from '@/components/ui/Skeleton'
+
+const sharedClassnames = 'w-full rounded-full'
 
 export const Search = () => {
   const { search, query, searchResults } = useSearch(['track'], 5)
@@ -17,7 +20,10 @@ export const Search = () => {
         <Command.Input
           value={query}
           onValueChange={search}
-          className='w-full rounded-full px-8 py-4 text-neutral-900 outline-none'
+          className={cn(
+            sharedClassnames,
+            'bg-white px-8 py-4 text-neutral-900 outline-none placeholder:text-neutral-500',
+          )}
           placeholder='Guess the song title'
         />
         <Command.List
@@ -46,11 +52,22 @@ export const Search = () => {
   )
 }
 
-type SearchItemProps = Track & {
-  resetSearch: () => void
+export const SearchSkeleton = ({ animate = true }: { animate?: boolean }) => {
+  return (
+    <Skeleton
+      classname={cn(sharedClassnames, 'h-14', !animate && 'animate-none')}
+    />
+  )
 }
 
-const SearchItem = ({ id, name, artists, resetSearch }: SearchItemProps) => {
+const SearchItem = ({
+  id,
+  name,
+  artists,
+  resetSearch,
+}: Track & {
+  resetSearch: () => void
+}) => {
   const submitGuess = useGame(state => state.submitGuess)
 
   const stringifiedArtists = artists.map(artist => artist.name).join(', ')

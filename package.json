@@ -14,7 +14,7 @@
     "@hookform/resolvers": "3.9.0",
     "@prisma/client": "5.19.1",
     "@spotify/web-api-ts-sdk": "1.2.0",
-    "@tanstack/react-query": "5.55.1",
+    "@tanstack/react-query": "5.55.2",
     "@types/spotify-web-api-node": "5.0.11",
     "axios": "1.7.7",
     "class-variance-authority": "0.7.0",

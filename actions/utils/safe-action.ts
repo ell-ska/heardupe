@@ -10,9 +10,9 @@ export class ActionError extends Error {
   }
 }
 
-const handleReturnedServerError = (error: Error) => {
+const handleServerError = (error: Error) => {
   if (error.message) return error.message
   return DEFAULT_SERVER_ERROR_MESSAGE
 }
 
-export const action = createSafeActionClient({ handleReturnedServerError })
+export const action = createSafeActionClient({ handleServerError })

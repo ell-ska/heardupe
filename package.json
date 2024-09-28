@@ -12,7 +12,7 @@
   "dependencies": {
     "@auth/core": "0.35.3",
     "@hookform/resolvers": "3.9.0",
-    "@prisma/client": "5.19.1",
+    "@prisma/client": "5.20.0",
     "@spotify/web-api-ts-sdk": "1.2.0",
     "@tanstack/react-query": "5.56.2",
     "@types/spotify-web-api-node": "5.0.11",
@@ -26,7 +26,7 @@
     "next-safe-action": "7.9.3",
     "prettier": "3.3.3",
     "prettier-plugin-tailwindcss": "0.6.8",
-    "prisma": "5.19.1",
+    "prisma": "5.20.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hook-form": "7.53.0",

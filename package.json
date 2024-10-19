@@ -10,7 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@auth/core": "0.37.1",
+    "@auth/core": "0.37.2",
     "@hookform/resolvers": "3.9.0",
     "@prisma/client": "5.21.1",
     "@spotify/web-api-ts-sdk": "1.2.0",

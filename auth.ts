@@ -53,6 +53,7 @@ export const {
           })
         }
       } catch (error) {
+        console.log(error)
         // hacky way of separating expected errors from database failure
         // AccessDenied will show as "AccessDenied" while AuthError will show as "Configuration"
         if (error instanceof AccessDenied) {
